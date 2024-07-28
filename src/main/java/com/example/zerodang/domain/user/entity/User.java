@@ -17,14 +17,21 @@ import java.time.LocalDateTime;
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String email;
-    private String password;
-    private String name;
+    private Long userId;
+
+    @Column(nullable = false, unique = true)
+    private String userEmail;
+
+    @Column(nullable = false)
+    private String userPassword;
+
+    @Column(nullable = false)
+    private String userName;
 
     private String kakaoId;
-    private LocalDateTime lastLoginDate;
 
-    @Enumerated(value = EnumType.STRING)
-    private UserStatus status;
+    private LocalDateTime lastLogin;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
 }
