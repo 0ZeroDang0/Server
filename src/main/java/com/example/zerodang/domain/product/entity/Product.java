@@ -24,12 +24,21 @@ public class Product extends BaseTimeEntity {
     private int productMl;
 
     private String productDescription;
+
+    @Column(name = "carbohydrate_g")
     private float carbohydrateG;
+    @Column(name = "sugar_g")
     private float sugarG;
+    @Column(name = "protein_g")
     private float proteinG;
+    @Column(name = "fat_g")
     private float fatG;
+    @Column(name = "saturated_fat_g")
     private float saturatedFatG;
+    @Column(name = "trans_fat_g")
     private float transFatG;
+    @Column(name = "cholesterol_g")
     private float cholesterolG;
+    @Column(name = "sodium_g")
     private float sodiumG;
 }

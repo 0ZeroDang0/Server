@@ -93,7 +93,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
 
         // 데이터베이스에서 사용자 존재 여부 및 활성화 상태 확인
-        boolean optionalUserId = userRepository.existsByIdAndStatus(id, UserStatus.ACTIVE);
+        boolean optionalUserId = userRepository.existsByUserIdAndUserStatus(id, UserStatus.ACTIVE);
         if (!optionalUserId) {
             throw new UserNotActiveException(ErrorCode.NOT_ACTIVE_USER);
         }
