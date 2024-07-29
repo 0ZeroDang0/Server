@@ -31,4 +31,9 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+    public void setUserStatus(UserStatus userStatus) { this.userStatus = userStatus; }
 }

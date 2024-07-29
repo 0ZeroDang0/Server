@@ -1,6 +1,9 @@
-package com.example.zerodang.global.security;
+package com.example.zerodang.global.config;
 
 import com.example.zerodang.domain.user.repository.UserRepository;
+import com.example.zerodang.global.security.SecurityDeniedHandler;
+import com.example.zerodang.global.security.SecurityExceptionHandler;
+import com.example.zerodang.global.security.ZeroDangSecurityConfigurerAdapter;
 import com.example.zerodang.global.security.jwt.JwtProvider;
 import com.example.zerodang.global.security.jwt.ZeroDangRole;
 import org.springframework.beans.factory.annotation.Autowired;

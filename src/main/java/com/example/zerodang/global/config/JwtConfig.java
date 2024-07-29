@@ -1,4 +1,4 @@
-package com.example.zerodang.global.security;
+package com.example.zerodang.global.config;
 
 import com.example.zerodang.global.security.jwt.JwtProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
