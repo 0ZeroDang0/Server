@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO.ProductDetailDTO findOneDetail(Long productId) {
+    public ProductResponseDTO.ProductDetailDTO findOneDetailByProductId(Long productId) {
         return null;
     }
 }
