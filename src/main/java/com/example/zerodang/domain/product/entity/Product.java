@@ -38,4 +38,5 @@ public class Product extends BaseTimeEntity {
     private float cholesterolG;
     @Column(name = "sodium_g")
     private float sodiumG;
+    private int likes;
 }
