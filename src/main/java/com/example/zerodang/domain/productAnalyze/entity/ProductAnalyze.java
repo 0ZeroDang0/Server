@@ -1,4 +1,4 @@
-package com.example.zerodang.domain.analyze.entity;
+package com.example.zerodang.domain.productAnalyze.entity;
 
 import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.user.entity.User;
