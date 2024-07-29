@@ -39,4 +39,8 @@ public class Product extends BaseTimeEntity {
     @Column(name = "sodium_g")
     private float sodiumG;
     private int likes;
+    private double stars;
+
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
 }
