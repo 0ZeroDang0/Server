@@ -1,4 +1,4 @@
-package com.example.zerodang.domain.reviewKeyword.entity;
+package com.example.zerodang.domain.review.entity;
 
 import com.example.zerodang.domain.review.entity.Keyword;
 import com.example.zerodang.domain.review.entity.Review;
