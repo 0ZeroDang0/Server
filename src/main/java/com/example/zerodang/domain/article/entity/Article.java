@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -20,7 +21,7 @@ public class Article extends BaseTimeEntity {
     private String title;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     private String author;
 
