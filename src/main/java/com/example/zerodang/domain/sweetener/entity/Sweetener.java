@@ -2,16 +2,13 @@ package com.example.zerodang.domain.sweetener.entity;
 
 import com.example.zerodang.domain.product.entity.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Sweetener {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

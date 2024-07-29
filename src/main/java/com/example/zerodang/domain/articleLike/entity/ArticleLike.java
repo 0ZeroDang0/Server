@@ -3,16 +3,13 @@ package com.example.zerodang.domain.articleLike.entity;
 import com.example.zerodang.domain.article.entity.Article;
 import com.example.zerodang.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
