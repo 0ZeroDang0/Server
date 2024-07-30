@@ -14,6 +14,7 @@ public class ArticleResponseDTO {
         private Long articleId;
         private String title;
         private String author;
+        private String summary;
         private LocalDateTime date;
         private String hashTag;
         private int views;
@@ -36,12 +37,12 @@ public class ArticleResponseDTO {
         private Long articleId;
         private String title;
         private String author;
+        private String summary;
         private String content;
         private LocalDateTime date;
         private String hashTag;
         private int views;
         private int likes;
-        private String thumbnail;
         private List<String> articleImageList;
     }
 }

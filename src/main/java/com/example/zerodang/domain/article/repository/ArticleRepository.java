@@ -1,4 +1,7 @@
 package com.example.zerodang.domain.article.repository;
 
-public interface ArticleRepository {
+import com.example.zerodang.domain.article.entity.Article;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleRepositoryCustom {
 }

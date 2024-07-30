@@ -16,17 +16,15 @@ public class Article extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long articleId;
-
     @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
+    private String summary;
 
     @Column(nullable = false)
     private LocalDateTime date;
-
     private String author;
-
     private String content;
-
     private String hashTag;
     private int views;
     private int likes;

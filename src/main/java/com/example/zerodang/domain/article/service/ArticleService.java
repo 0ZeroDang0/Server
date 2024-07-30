@@ -7,5 +7,5 @@ public interface ArticleService {
     ArticleResponseDTO.ArticleFindAllDTO findAll();
 
     /** 아티클 상세 조회 **/
-    ArticleResponseDTO.ArticleFindDetailDTO findOneDetailByArticleId(Long articleId);
+    ArticleResponseDTO.ArticleFindDetailDTO findDetail(Long articleId);
 }

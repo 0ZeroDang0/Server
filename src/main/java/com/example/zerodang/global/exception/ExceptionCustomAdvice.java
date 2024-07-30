@@ -1,5 +1,6 @@
 package com.example.zerodang.global.exception;
 
+import com.example.zerodang.global.exception.article.ArticleNotFoundException;
 import com.example.zerodang.global.exception.secure.SecureException;
 import com.example.zerodang.global.exception.user.UserEmailDuplicationException;
 import com.example.zerodang.global.exception.user.UserInvalidPasswordException;
@@ -56,12 +57,12 @@ public class ExceptionCustomAdvice {
                 HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserProfileNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleException(UserProfileNotFoundException ex) {
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(ArticleNotFoundException ex) {
         log.debug(ex.getMessage(), ex);
         return new ResponseEntity<>(
                 new ApiErrorResponse(
-                        ErrorCode.NOT_FOUND_USER_PROFILE.getStatus(),
+                        ErrorCode.NOT_FOUND_ARTICLE.getStatus(),
                         ex.getMessage()),
                 HttpStatus.NOT_FOUND);
     }
