@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.product.service;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
@@ -10,10 +11,8 @@ public interface ProductService {
     ProductResponseDTO.ProductFindAllDTO findAllByTOP3();
     /** 인공 감미료 적은 수 조회 **/
     ProductResponseDTO.ProductFindAllDTO findAllBySweetener();
-    /** 신제품 순 조회 **/
-    ProductResponseDTO.ProductFindAllDTO findAllByNewProduct();
     /** 카테고리 별 조회 **/
-    ProductResponseDTO.ProductFindAllDTO findAllByCategory(Pageable pageable);
+    Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(Pageable pageable);
     /** 상품 상제 조회 **/
     ProductResponseDTO.ProductDetailDTO findOneDetailByProductId(Long productId);
 }

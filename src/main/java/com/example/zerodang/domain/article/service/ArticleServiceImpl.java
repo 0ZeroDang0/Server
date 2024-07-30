@@ -25,7 +25,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponseDTO.ArticleFindDetailDTO findDetail(Long articleId) {
+    public ArticleResponseDTO.ArticleFindDetailDTO findDetailByArticleId(Long articleId) {
         getArticle_id(articleId);
         return articleRepository.findOneDetailByArticleId(articleId);
     }

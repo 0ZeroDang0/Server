@@ -10,5 +10,5 @@ public interface ArticleService {
     Page<ArticleResponseDTO.ArticleFindOneDTO> findAll(Pageable pageable);
 
     /** 아티클 상세 조회 **/
-    ArticleResponseDTO.ArticleFindDetailDTO findDetail(Long articleId);
+    ArticleResponseDTO.ArticleFindDetailDTO findDetailByArticleId(Long articleId);
 }

@@ -33,15 +33,15 @@ public class ArticleApiController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ArticleResponseDTO.ArticleFindDetailDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> findDetail(@Parameter(description = "아티클 고유 식별자")
+    public ResponseEntity<?> findDetailByArticleId(@Parameter(description = "아티클 고유 식별자")
                                               @PathVariable("articleId") Long articleId) {
-        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), articleService.findDetail(articleId)));
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), articleService.findDetailByArticleId(articleId)));
     }
 
     @GetMapping("/findAll")
     @Operation(summary = "아티클 전체 조회", description = "아티클 전체를 조회합니다.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ArticleResponseDTO.ArticleFindAllDTO.class)))
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ArticleResponseDTO.ArticleFindOneDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<?> findAll(Pageable pageable) {

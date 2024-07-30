@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductResponseDTO {
     @Data
@@ -18,8 +19,8 @@ public class ProductResponseDTO {
         private String productName;
         private int productMl;
         private ProductCategory productCategory;
-        private List<Keyword> keywordList;
-        private String productImageUrl;
+        private Map<Keyword, Long> keywordList;
+        private String thumbnail;
     }
     @Data
     @AllArgsConstructor
@@ -36,12 +37,12 @@ public class ProductResponseDTO {
         private Long productId;
         private String productName;
         private ProductCategory productCategory;
-        private String productImageUrl;
+        private String thumbnail;
         private int productMl;
         private double stars;
         private int likes;
         private List<Sweetener> sweetenerList;
-        private List<Keyword> keywordList;
+        private Map<Keyword, Long> keywordList;
         private float carbohydrateG;
         private float sugarG;
         private float proteinG;

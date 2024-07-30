@@ -4,6 +4,7 @@ import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +31,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO.ProductFindAllDTO findAllByNewProduct() {
-        return null;
-    }
-
-    @Override
-    public ProductResponseDTO.ProductFindAllDTO findAllByCategory(Pageable pageable) {
-        return null;
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(Pageable pageable) {
+        return productRepository.findAllWithPageable(pageable);
     }
 
     @Override

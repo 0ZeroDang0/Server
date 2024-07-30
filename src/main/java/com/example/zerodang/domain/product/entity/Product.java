@@ -45,4 +45,5 @@ public class Product extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
+    private String thumbnail;
 }
