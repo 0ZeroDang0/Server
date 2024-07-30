@@ -15,5 +15,5 @@ public interface ProductService {
     /** 카테고리 별 조회 **/
     Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(ProductCategory productCategory, Pageable pageable);
     /** 상품 상제 조회 **/
-    ProductResponseDTO.ProductDetailDTO findOneDetailByProductId(Long productId);
+    ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId);
 }
