@@ -41,6 +41,7 @@ public class Product extends BaseTimeEntity {
     private int likes;
     private double stars;
     private int reviews;
+    private int views;
 
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
