@@ -40,6 +40,7 @@ public class Product extends BaseTimeEntity {
     private float sodiumG;
     private int likes;
     private double stars;
+    private int reviews;
 
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class ReviewServiceImpl implements ReviewService {
     @Override
-    public ReviewResponseDTO.ReviewSaveDTO save(ReviewRequestDTO.ReviewSaveDTO reviewSaveDTO) {
+    public ReviewResponseDTO.ReviewDetailDTO save(ReviewRequestDTO.ReviewSaveDTO reviewSaveDTO) {
         return null;
     }
 
