@@ -43,6 +43,7 @@ public class ArticleResponseDTO {
         private String hashTag;
         private int views;
         private int likes;
+        private String thumbnail;
         private List<String> articleImageList;
     }
 }

@@ -4,7 +4,10 @@ import com.example.zerodang.domain.article.dto.response.ArticleResponseDTO;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import static com.example.zerodang.domain.article.entity.QArticle.article;
@@ -27,7 +30,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 article.date,
                 article.hashTag,
                 article.views,
-                article.likes
+                article.likes,
+                article.thumbnail
                 ))
                 .from(article)
                 .where(article.articleId.eq(articleId))
@@ -38,8 +42,30 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 .where(articleImage.article.articleId.eq(articleId))
                 .fetch();
 
-        result.setArticleImageList(articleUrlList);
+        return result.builder().articleImageList(articleUrlList).build();
+    }
 
-        return result;
+
+    @Override
+    public Page<ArticleResponseDTO.ArticleFindOneDTO> findAllWithPageable(Pageable pageable) {
+        List<ArticleResponseDTO.ArticleFindOneDTO> result = queryFactory.select(Projections.constructor(ArticleResponseDTO.ArticleFindOneDTO.class,
+                        article.articleId,
+                        article.title,
+                        article.author,
+                        article.summary,
+                        article.date,
+                        article.hashTag,
+                        article.views,
+                        article.likes,
+                        article.thumbnail
+                ))
+                .from(article)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = queryFactory.selectFrom(article).fetchCount();
+
+        return new PageImpl<>(result, pageable, total);
     }
 }

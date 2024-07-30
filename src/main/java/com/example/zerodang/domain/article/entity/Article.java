@@ -28,4 +28,5 @@ public class Article extends BaseTimeEntity {
     private String hashTag;
     private int views;
     private int likes;
+    private String thumbnail;
 }

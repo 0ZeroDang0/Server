@@ -7,9 +7,10 @@ import com.example.zerodang.global.exception.ErrorCode;
 import com.example.zerodang.global.exception.article.ArticleNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
 @Service
@@ -19,8 +20,8 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
     @Override
-    public ArticleResponseDTO.ArticleFindAllDTO findAll() {
-        return null;
+    public Page<ArticleResponseDTO.ArticleFindOneDTO> findAll(Pageable pageable) {
+        return articleRepository.findAllWithPageable(pageable);
     }
 
     @Override
