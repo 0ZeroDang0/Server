@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.product.service;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(Pageable pageable) {
-        return productRepository.findAllWithPageable(pageable);
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(ProductCategory productCategory, Pageable pageable) {
+        return productRepository.findAllWithPageable(productCategory, pageable);
     }
 
     @Override

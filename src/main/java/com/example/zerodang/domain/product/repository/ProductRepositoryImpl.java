@@ -1,6 +1,8 @@
 package com.example.zerodang.domain.product.repository;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import com.example.zerodang.domain.product.entity.ProductCategory;
+import com.example.zerodang.domain.product.entity.QProduct;
 import com.example.zerodang.domain.review.entity.Keyword;
 import com.example.zerodang.domain.review.entity.QReviewKeyword;
 import com.querydsl.core.types.Projections;
@@ -24,7 +26,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllWithPageable(Pageable pageable) {
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllWithPageable(ProductCategory productCategory, Pageable pageable) {
+        QProduct product = QProduct.product;
         QReviewKeyword reviewKeyword = QReviewKeyword.reviewKeyword;
 
         List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
@@ -35,6 +38,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                         product.thumbnail
                 ))
                 .from(product)
+                .where(product.productCategory.eq(productCategory))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -53,11 +57,13 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             }
 
             productDTO.setKeywordList(keywordCountMap);
-
         });
 
-        long total = queryFactory.selectFrom(product).fetchCount();
+        long total = queryFactory.selectFrom(product)
+                .where(product.productCategory.eq(productCategory))
+                .fetchCount();
 
         return new PageImpl<>(result, pageable, total);
     }
+
 }
