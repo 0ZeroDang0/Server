@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(ProductCategory productCategory, Pageable pageable) {
-        return productRepository.findAllWithPageable(productCategory, pageable);
+        return productRepository.findAllByCategoryWithPageable(productCategory, pageable);
     }
 
     @Override

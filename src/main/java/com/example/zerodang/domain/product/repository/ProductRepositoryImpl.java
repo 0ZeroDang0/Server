@@ -26,7 +26,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllWithPageable(ProductCategory productCategory, Pageable pageable) {
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategoryWithPageable(ProductCategory productCategory, Pageable pageable) {
         QProduct product = QProduct.product;
         QReviewKeyword reviewKeyword = QReviewKeyword.reviewKeyword;
 
