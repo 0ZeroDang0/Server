@@ -149,4 +149,37 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         });
         return new ProductResponseDTO.ProductFindAllDTO(result);
     }
+
+    @Override
+    public ProductResponseDTO.ProductFindAllDTO findAllBySweetener() {
+        List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
+                        product.productId,
+                        product.productName,
+                        product.productMl,
+                        product.productCategory,
+                        product.thumbnail
+                ))
+                .leftJoin(sweetener).on(sweetener.product.productId.eq(product.productId))
+                .groupBy(product.productId)
+                .orderBy(sweetener.count().asc())
+                .limit(10)
+                .fetch();
+
+        result.forEach(productDTO -> {
+            Map<Keyword, Long> keywordCountMap = queryFactory.select(reviewKeyword.keyword, reviewKeyword.keyword.count())
+                    .from(reviewKeyword)
+                    .where(reviewKeyword.review.product.productId.eq(productDTO.getProductId()))
+                    .groupBy(reviewKeyword.keyword)
+                    .fetch()
+                    .stream()
+                    .collect(Collectors.toMap(tuple -> tuple.get(reviewKeyword.keyword), tuple -> tuple.get(reviewKeyword.keyword.count())));
+
+            for (Keyword keyword : Keyword.values()) {
+                keywordCountMap.putIfAbsent(keyword, 0L);
+            }
+
+            productDTO.setKeywordList(keywordCountMap);
+        });
+        return new ProductResponseDTO.ProductFindAllDTO(result);
+    }
 }

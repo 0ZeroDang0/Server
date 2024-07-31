@@ -55,4 +55,14 @@ public class ProductApiController {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productService.findAllByTOP3()));
     }
 
+    @GetMapping("/findAllBySweetener")
+    @Operation(summary = "상품 인공감미료 최저순 조회", description = "상품 인공감미료 최저순 조회합니다.")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductResponseDTO.ProductFindAllDTO.class)))
+//            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    public ResponseEntity<?> findAllBySweetener() {
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productService.findAllBySweetener()));
+    }
+
 }

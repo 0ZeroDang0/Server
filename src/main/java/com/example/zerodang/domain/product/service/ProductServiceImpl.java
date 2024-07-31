@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO.ProductFindAllDTO findAllBySweetener() {
-        return null;
+        return productRepository.findAllBySweetener();
     }
 
     @Override
