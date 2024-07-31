@@ -30,7 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findOneDetailByArticleId(articleId);
     }
 
-    private Article getArticle_id(Long articleId) {
+    @Override
+    public Article getArticle_id(Long articleId) {
         Optional<Article> optionalArticle = articleRepository.findById(articleId);
         if(!optionalArticle.isPresent()) {
             throw new ArticleNotFoundException(ErrorCode.NOT_FOUND_ARTICLE);

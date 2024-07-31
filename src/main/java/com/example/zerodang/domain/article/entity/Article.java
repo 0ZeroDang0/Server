@@ -29,4 +29,12 @@ public class Article extends BaseTimeEntity {
     private int views;
     private int likes;
     private String thumbnail;
+
+    public void minusLikes() {
+        this.likes--;
+    }
+
+    public void plusLikes() {
+        this.likes++;
+    }
 }

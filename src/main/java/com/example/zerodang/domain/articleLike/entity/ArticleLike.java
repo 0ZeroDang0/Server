@@ -15,9 +15,8 @@ public class ArticleLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long articleLikeId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private Long userId;
 
     @ManyToOne
     @JoinColumn(name = "article_id", nullable = false)
