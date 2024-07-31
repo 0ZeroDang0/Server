@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.product.service;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,5 @@ public interface ProductService {
     Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategory(ProductCategory productCategory, Pageable pageable);
     /** 상품 상제 조회 **/
     ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId);
+    Product getProduct_id(Long productId);
 }

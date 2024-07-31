@@ -48,7 +48,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findDetailByProductId(productId);
     }
 
-    private Product getProduct_id(Long productId) {
+    @Override
+    public Product getProduct_id(Long productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if(!optionalProduct.isPresent()) {
             throw new ArticleNotFoundException(ErrorCode.NOT_FOUND_PRODUCT);
