@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface ProductRepositoryCustom {
     Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategoryWithPageable(ProductCategory productCategory, Pageable pageable);
     ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId);
+    ProductResponseDTO.ProductFindAllDTO findAllByTOP3();
 }

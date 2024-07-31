@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.product.repository;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.entity.QProduct;
 import com.example.zerodang.domain.review.entity.Keyword;
@@ -115,5 +116,37 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         }
 
         return result;
+    }
+
+    @Override
+    public ProductResponseDTO.ProductFindAllDTO findAllByTOP3() {
+        List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
+                        product.productId,
+                        product.productName,
+                        product.productMl,
+                        product.productCategory,
+                        product.thumbnail
+                ))
+                .from(product)
+                .orderBy(product.views.desc())
+                .limit(3)
+                .fetch();
+
+        result.forEach(productDTO -> {
+            Map<Keyword, Long> keywordCountMap = queryFactory.select(reviewKeyword.keyword, reviewKeyword.keyword.count())
+                    .from(reviewKeyword)
+                    .where(reviewKeyword.review.product.productId.eq(productDTO.getProductId()))
+                    .groupBy(reviewKeyword.keyword)
+                    .fetch()
+                    .stream()
+                    .collect(Collectors.toMap(tuple -> tuple.get(reviewKeyword.keyword), tuple -> tuple.get(reviewKeyword.keyword.count())));
+
+            for (Keyword keyword : Keyword.values()) {
+                keywordCountMap.putIfAbsent(keyword, 0L);
+            }
+
+            productDTO.setKeywordList(keywordCountMap);
+        });
+        return new ProductResponseDTO.ProductFindAllDTO(result);
     }
 }

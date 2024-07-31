@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO.ProductFindAllDTO findAllByTOP3() {
-        return null;
+        return productRepository.findAllByTOP3();
     }
 
     @Override
