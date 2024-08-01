@@ -1,6 +1,6 @@
 package com.example.zerodang.domain.product.controller;
 
-import com.example.zerodang.domain.article.dto.response.ArticleResponseDTO;
+import com.example.zerodang.domain.product.dto.request.ProductRequestDTO;
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.service.ProductService;
@@ -31,12 +31,12 @@ public class ProductApiController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductResponseDTO.ProductFindOneDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> findAllByCategory(@RequestParam("productCategory") ProductCategory productCategory, Pageable pageable) {
+    public ResponseEntity<?> findAllByCategory(@RequestParam(value = "productCategory", required = false) ProductCategory productCategory, Pageable pageable) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productService.findAllByCategory(productCategory, pageable)));
     }
 
     @GetMapping("/findDetail/{productId}")
-    @Operation(summary = "상품 전체 조회", description = "상품 전체를 조회합니다.")
+    @Operation(summary = "상품 자세히 조회", description = "상품 자세히 조회합니다.")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductResponseDTO.ProductDetailDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
@@ -65,4 +65,23 @@ public class ProductApiController {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productService.findAllBySweetener()));
     }
 
+    @GetMapping("/findAllByFilter")
+    @Operation(summary = "상품 키워드 + 카테고리 조회", description = "상품 키워드 + 카테고리 조회합니다.")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductResponseDTO.ProductFindOneDTO.class)))
+//            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    public ResponseEntity<?> findAllByFilter(@RequestParam(value = "keyWord", required = false) String keyWord,
+                                             @RequestParam(value = "productCategory", required = false) ProductCategory productCategory,
+                                             Pageable pageable
+                                             ) {
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productService.findAllByFilter(getProductFIlterDTO(keyWord, productCategory), pageable)));
+    }
+
+    private static ProductRequestDTO.ProductFilterDTO getProductFIlterDTO(String keyWord, ProductCategory productCategory) {
+        return ProductRequestDTO.ProductFilterDTO.builder()
+                .keyWord(keyWord)
+                .productCategory(productCategory)
+                .build();
+    }
 }

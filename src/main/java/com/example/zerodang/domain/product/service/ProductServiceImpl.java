@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.product.service;
 
 import com.example.zerodang.domain.article.entity.Article;
+import com.example.zerodang.domain.product.dto.request.ProductRequestDTO;
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.entity.ProductCategory;
@@ -49,8 +50,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(Pageable pageable) {
-        return null;
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable) {
+        return productRepository.findAllByFilter(productFilterDTO ,pageable);
     }
 
     @Override

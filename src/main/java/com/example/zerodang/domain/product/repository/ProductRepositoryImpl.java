@@ -1,5 +1,6 @@
 package com.example.zerodang.domain.product.repository;
 
+import com.example.zerodang.domain.product.dto.request.ProductRequestDTO;
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.entity.QProduct;
@@ -178,16 +179,16 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(String keyword, ProductCategory productCategory, Pageable pageable) {
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        if (keyword != null && !keyword.isEmpty()) {
-            builder.and(product.productName.containsIgnoreCase(keyword)
-                    .or(product.productDescription.containsIgnoreCase(keyword)));
+        if (productFilterDTO.getKeyWord() != null && !productFilterDTO.getKeyWord() .isEmpty()) {
+            builder.and(product.productName.containsIgnoreCase(productFilterDTO.getKeyWord() )
+                    .or(product.productDescription.containsIgnoreCase(productFilterDTO.getKeyWord() )));
         }
 
-        if (productCategory != null) {
-            builder.and(product.productCategory.eq(productCategory));
+        if (productFilterDTO.getProductCategory() != null) {
+            builder.and(product.productCategory.eq(productFilterDTO.getProductCategory()));
         }
 
         List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
