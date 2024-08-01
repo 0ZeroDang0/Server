@@ -44,8 +44,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId) {
-        getProduct_id(productId);
         return productRepository.findDetailByProductId(productId);
+    }
+
+    @Override
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(Pageable pageable) {
+        return null;
     }
 
     @Override

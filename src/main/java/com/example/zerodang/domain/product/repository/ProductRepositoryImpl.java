@@ -7,6 +7,7 @@ import com.example.zerodang.domain.product.entity.QProduct;
 import com.example.zerodang.domain.review.entity.Keyword;
 import com.example.zerodang.domain.review.entity.QReviewKeyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -181,5 +182,54 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             productDTO.setKeywordList(keywordCountMap);
         });
         return new ProductResponseDTO.ProductFindAllDTO(result);
+    }
+
+    @Override
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(String keyword, ProductCategory productCategory, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (keyword != null && !keyword.isEmpty()) {
+            builder.and(product.productName.containsIgnoreCase(keyword)
+                    .or(product.productDescription.containsIgnoreCase(keyword)));
+        }
+
+        if (productCategory != null) {
+            builder.and(product.productCategory.eq(productCategory));
+        }
+
+        List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
+                        product.productId,
+                        product.productName,
+                        product.productMl,
+                        product.productCategory,
+                        product.thumbnail
+                ))
+                .from(product)
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        result.forEach(productDTO -> {
+            Map<Keyword, Long> keywordCountMap = queryFactory.select(reviewKeyword.keyword, reviewKeyword.keyword.count())
+                    .from(reviewKeyword)
+                    .where(reviewKeyword.review.product.productId.eq(productDTO.getProductId()))
+                    .groupBy(reviewKeyword.keyword)
+                    .fetch()
+                    .stream()
+                    .collect(Collectors.toMap(tuple -> tuple.get(reviewKeyword.keyword), tuple -> tuple.get(reviewKeyword.keyword.count())));
+
+            for (Keyword keywordEnum : Keyword.values()) {
+                keywordCountMap.putIfAbsent(keywordEnum, 0L);
+            }
+
+            productDTO.setKeywordList(keywordCountMap);
+        });
+
+        long total = queryFactory.selectFrom(product)
+                .where(builder)
+                .fetchCount();
+
+        return new PageImpl<>(result, pageable, total);
     }
 }
