@@ -3,6 +3,8 @@ package com.example.zerodang.domain.productAnalyze.controller;
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.productAnalyze.dto.request.ProductAnalyzeRequestDTO;
+import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO;
+import com.example.zerodang.domain.productAnalyze.entity.ProductAnalyze;
 import com.example.zerodang.domain.productAnalyze.service.ProductAnalyzeService;
 import com.example.zerodang.domain.user.dto.request.UserRequestDTO;
 import com.example.zerodang.domain.user.dto.response.UserResponseDTO;
@@ -30,9 +32,9 @@ public class ProductAnalyzeApiController {
     private final ProductAnalyzeService productAnalyzeService;
 
     @PostMapping("/cart")
-    @Operation(summary = "회원가입 API", description = "회원가입 API 입니다.")
+    @Operation(summary = "담기 API", description = "담기 API 입니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = UserResponseDTO.UserJoinDTO.class)))
+            @ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO.class)))
     })
     public ResponseEntity<?> cart(@PathVariable("productId") Long productId) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productAnalyzeService.cart(productId, SecurityUtil.getCurrentId())));
@@ -46,5 +48,15 @@ public class ProductAnalyzeApiController {
     })
     public ResponseEntity<?> findAllByUserId(Pageable pageable) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productAnalyzeService.findAllByUserId(SecurityUtil.getCurrentId(), pageable)));
+    }
+
+    @PostMapping("/delete")
+    @Operation(summary = "담은 상품 삭제 API", description = "담은 상품 삭제 API 입니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "SUCCESS")
+    })
+    public ResponseEntity<?> delete(@RequestBody ProductAnalyzeRequestDTO.ProductAnalyzeDeleteDTO productAnalyzeDeleteDTO) {
+        productAnalyzeService.delete(productAnalyzeDeleteDTO, SecurityUtil.getCurrentId());
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value()));
     }
 }

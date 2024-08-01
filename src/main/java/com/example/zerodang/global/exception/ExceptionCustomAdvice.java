@@ -1,6 +1,7 @@
 package com.example.zerodang.global.exception;
 
 import com.example.zerodang.global.exception.article.ArticleNotFoundException;
+import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeNotFoundException;
 import com.example.zerodang.global.exception.secure.SecureException;
 import com.example.zerodang.global.exception.user.UserEmailDuplicationException;
 import com.example.zerodang.global.exception.user.UserInvalidPasswordException;
@@ -63,6 +64,16 @@ public class ExceptionCustomAdvice {
         return new ResponseEntity<>(
                 new ApiErrorResponse(
                         ErrorCode.NOT_FOUND_ARTICLE.getStatus(),
+                        ex.getMessage()),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ProductAnalyzeNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(ProductAnalyzeNotFoundException ex) {
+        log.debug(ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                new ApiErrorResponse(
+                        ErrorCode.NOT_FOUND_PRODUCT_ANALYZE.getStatus(),
                         ex.getMessage()),
                 HttpStatus.NOT_FOUND);
     }
