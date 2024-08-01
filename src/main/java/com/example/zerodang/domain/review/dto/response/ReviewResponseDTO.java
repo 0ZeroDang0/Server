@@ -20,13 +20,12 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Builder
-    public static class ReviewFindAllDTO {
+    public static class ReviewFindCountDTO {
         private int reviews;
         private int oneStarReviews;
         private int twoStarReviews;
         private int threeStarReviews;
         private int fourStarReviews;
         private int fiveStarReviews;
-        List<ReviewDetailDTO> reviewDetailDTOList;
     }
 }

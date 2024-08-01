@@ -11,6 +11,8 @@ import com.example.zerodang.domain.reviewKeyword.service.ReviewKeywordService;
 import com.example.zerodang.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +40,12 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewResponseDTO.ReviewFindAllDTO findAllByProductId(Long productId) {
-        return null;
+    public Page<ReviewResponseDTO.ReviewDetailDTO> findAllByProductId(Long productId, Pageable pageable) {
+        return reviewRepository.findAllByProductId(productId, pageable);
+    }
+
+    @Override
+    public ReviewResponseDTO.ReviewFindCountDTO findCountByProductId(Long productId) {
+        return reviewRepository.countReviewsByProductId(productId);
     }
 }

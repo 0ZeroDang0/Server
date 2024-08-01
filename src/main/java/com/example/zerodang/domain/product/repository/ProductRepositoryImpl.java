@@ -4,7 +4,7 @@ import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.entity.QProduct;
 import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
-import com.example.zerodang.domain.review.entity.QReviewKeyword;
+import com.example.zerodang.domain.reviewKeyword.entity.QReviewKeyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
@@ -13,15 +13,12 @@ import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import static com.example.zerodang.domain.product.entity.QProduct.product;
-import static com.example.zerodang.domain.review.entity.QReviewKeyword.reviewKeyword;
 import static com.example.zerodang.domain.sweetener.entity.QSweetener.sweetener;
-
+import static com.example.zerodang.domain.reviewKeyword.entity.QReviewKeyword.reviewKeyword;
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
@@ -31,9 +28,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     @Override
     public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategoryWithPageable(ProductCategory productCategory, Pageable pageable) {
-        QProduct product = QProduct.product;
-        QReviewKeyword reviewKeyword = QReviewKeyword.reviewKeyword;
-
         List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
                         product.productId,
                         product.productName,
