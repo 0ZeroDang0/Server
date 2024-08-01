@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductAnalyzeResponseDTO {
     @Data
@@ -20,6 +21,20 @@ public class ProductAnalyzeResponseDTO {
         private User user;
         private Product product;
     }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
+    public static class ProductAnalyzeFindOneDTO {
+        private Long productId;
+        private String productName;
+        private int productMl;
+        private ProductCategory productCategory;
+        private Map<Keyword, Long> keywordList;
+        private String thumbnail;
+    }
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

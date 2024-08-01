@@ -179,7 +179,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable) {
+    public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilterWithPageable(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
 
         if (productFilterDTO.getKeyWord() != null && !productFilterDTO.getKeyWord() .isEmpty()) {

@@ -11,5 +11,5 @@ public interface ProductRepositoryCustom {
     ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId);
     ProductResponseDTO.ProductFindAllDTO findAllByTOP3();
     ProductResponseDTO.ProductFindAllDTO findAllBySweetener();
-    Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilter(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable);
+    Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilterWithPageable(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable);
 }

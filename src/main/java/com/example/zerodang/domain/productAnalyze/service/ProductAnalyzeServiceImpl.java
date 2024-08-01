@@ -8,6 +8,8 @@ import com.example.zerodang.domain.productAnalyze.repository.ProductAnalyzeRepos
 import com.example.zerodang.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,12 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     @Transactional
     public ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO cart(Long productId, Long userId) {
         ProductAnalyze productAnalyze = productAnalyzeMapper.toProductAnalyzeEntity(productService.getProduct_id(productId), userService.getUser_Id(userId));
+        productAnalyzeRepository.save(productAnalyze);
         return productAnalyzeMapper.toProductAnalyzeSaveResDTO(productAnalyze);
+    }
+
+    @Override
+    public Page<ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO> findAllByUserId(Long userId, Pageable pageable) {
+        return productAnalyzeRepository.findAllByUserIdWithPageable(userId, pageable);
     }
 }
