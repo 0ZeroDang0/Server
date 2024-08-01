@@ -1,11 +1,9 @@
-package com.example.zerodang.domain.visitorStats.controller;
+package com.example.zerodang.domain.count.controller;
 
-import com.example.zerodang.domain.article.dto.response.ArticleResponseDTO;
-import com.example.zerodang.domain.visitorStats.dto.response.VisitorStatsResponseDTO;
-import com.example.zerodang.domain.visitorStats.service.VisitorStatsService;
+import com.example.zerodang.domain.count.dto.response.VisitorStatsResponseDTO;
+import com.example.zerodang.domain.count.service.CountService;
 import com.example.zerodang.global.response.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "VisitorStats", description = "방문자 관련 API")
 @RequiredArgsConstructor
 @Slf4j
-public class VisitorStatsApiController {
-    private final VisitorStatsService visitorStatsService;
+public class CountApiController {
+    private final CountService visitorStatsService;
 
     @PostMapping("/recordVisit")
     @Operation(summary = "방문자 수 기록", description = "방문자 수를 기록합니다.")
@@ -42,6 +40,6 @@ public class VisitorStatsApiController {
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<?> findVisitorStatsCount() {
-        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), visitorStatsService.findVisitorStatsCount()));
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), visitorStatsService.findCount()));
     }
 }

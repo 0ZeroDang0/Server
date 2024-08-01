@@ -1,4 +1,4 @@
-package com.example.zerodang.domain.visitorStats.dto.response;
+package com.example.zerodang.domain.count.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,8 @@ public class VisitorStatsResponseDTO {
     @Data
     @AllArgsConstructor
     public static class VisitorStatsCountDTO {
-        int totalCount;
-        int todayCount;
+        int totalVisitorCount;
+        int todayVisitorCount;
+        int todayComparisonCount;
     }
 }

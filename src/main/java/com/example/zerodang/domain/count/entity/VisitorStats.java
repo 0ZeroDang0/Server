@@ -1,12 +1,10 @@
-package com.example.zerodang.domain.visitorStats.entity;
+package com.example.zerodang.domain.count.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
-
-import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -18,11 +16,9 @@ public class VisitorStats {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate visitDate;
+    private int totalVisitCount;
 
-    private int visitCount;
-
-    public void plusVisitCount() {
-        this.visitCount++;
+    public void setTotalVisitCount(int count) {
+        this.totalVisitCount = count;
     }
 }

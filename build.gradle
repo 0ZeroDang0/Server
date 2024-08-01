@@ -86,6 +86,9 @@ dependencies {
 
     // WebClient
     implementation 'org.springframework.boot:spring-boot-starter-webflux:3.3.1'
+
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {
