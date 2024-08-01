@@ -1,6 +1,5 @@
-package com.example.zerodang.domain.review.entity;
+package com.example.zerodang.domain.reviewKeyword.entity;
 
-import com.example.zerodang.domain.review.entity.Keyword;
 import com.example.zerodang.domain.review.entity.Review;
 import com.example.zerodang.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;

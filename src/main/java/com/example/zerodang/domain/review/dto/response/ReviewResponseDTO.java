@@ -1,6 +1,6 @@
 package com.example.zerodang.domain.review.dto.response;
 
-import com.example.zerodang.domain.review.entity.ReviewKeyword;
+import com.example.zerodang.domain.reviewKeyword.entity.ReviewKeyword;
 import lombok.*;
 
 import java.util.List;

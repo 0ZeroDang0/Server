@@ -1,10 +1,9 @@
 package com.example.zerodang.domain.product.repository;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
-import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.entity.QProduct;
-import com.example.zerodang.domain.review.entity.Keyword;
+import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
 import com.example.zerodang.domain.review.entity.QReviewKeyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
 import com.querydsl.core.BooleanBuilder;

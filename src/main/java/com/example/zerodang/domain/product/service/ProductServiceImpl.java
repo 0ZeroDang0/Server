@@ -7,6 +7,7 @@ import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.product.repository.ProductRepository;
 import com.example.zerodang.global.exception.ErrorCode;
 import com.example.zerodang.global.exception.article.ArticleNotFoundException;
+import com.example.zerodang.global.exception.product.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -54,10 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProduct_id(Long productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if(!optionalProduct.isPresent()) {
-            throw new ArticleNotFoundException(ErrorCode.NOT_FOUND_PRODUCT);
-        }
-        return optionalProduct.get();
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(ErrorCode.NOT_FOUND_PRODUCT));
     }
 }

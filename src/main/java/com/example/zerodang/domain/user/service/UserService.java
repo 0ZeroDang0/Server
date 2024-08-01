@@ -2,6 +2,7 @@ package com.example.zerodang.domain.user.service;
 
 import com.example.zerodang.domain.user.dto.request.UserRequestDTO;
 import com.example.zerodang.domain.user.dto.response.UserResponseDTO;
+import com.example.zerodang.domain.user.entity.User;
 import com.example.zerodang.global.security.jwt.JwtDto;
 
 public interface UserService {
@@ -11,4 +12,7 @@ public interface UserService {
     UserResponseDTO.UserJoinDTO join(UserRequestDTO.UserJoinDTO userJoinDTO);
     /** 로그아웃 **/
     /** 로그인 **/
+
+    User getUser_Id(Long userId);
+    User getUser_Email(String userEmail);
 }

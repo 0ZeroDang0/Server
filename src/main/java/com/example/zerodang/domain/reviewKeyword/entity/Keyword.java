@@ -1,4 +1,4 @@
-package com.example.zerodang.domain.review.entity;
+package com.example.zerodang.domain.reviewKeyword.entity;
 
 public enum Keyword {
     CLEAN,

@@ -1,9 +1,8 @@
 package com.example.zerodang.domain.product.dto.response;
 
 import com.example.zerodang.domain.product.entity.ProductCategory;
-import com.example.zerodang.domain.review.entity.Keyword;
+import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.util.List;

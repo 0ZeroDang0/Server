@@ -12,13 +12,12 @@ import java.util.Arrays;
 
 @OpenAPIDefinition(
         info = @io.swagger.v3.oas.annotations.info.Info(
-                title = "PETAROUND",
-                description = "PETAROUND API 명세서",
+                title = "ZERODANG",
+                description = "ZERODANG API 명세서",
                 version = "1.0.0")
 )
 @Configuration
 public class SpringDocOpenApiConfig {
-
     @Bean
     public OpenAPI openAPI() {
         SecurityScheme securityScheme = new SecurityScheme()
@@ -33,5 +32,3 @@ public class SpringDocOpenApiConfig {
 }
 
 // http://localhost:8080/swagger-ui/index.html#/
-
-// 기존 디렉토리를 모두 삭제해야 할 수 있기 때문에 Swagger 디렉토리를 생성해서 따로 빼놨습니다.
