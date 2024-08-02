@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductAnalyzeApiController {
     private final ProductAnalyzeService productAnalyzeService;
 
-    @PostMapping("/cart")
+    @PostMapping("/cart/{productId}")
     @Operation(summary = "담기 API", description = "담기 API 입니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO.class)))

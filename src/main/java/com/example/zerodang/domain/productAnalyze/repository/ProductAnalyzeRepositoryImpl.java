@@ -1,8 +1,11 @@
 package com.example.zerodang.domain.productAnalyze.repository;
 
 import com.example.zerodang.domain.product.dto.response.ProductResponseDTO;
+import com.example.zerodang.domain.product.entity.QProduct;
 import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO;
+import com.example.zerodang.domain.productAnalyze.entity.QProductAnalyze;
 import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
+import com.example.zerodang.domain.reviewKeyword.entity.QReviewKeyword;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -26,6 +29,10 @@ public class ProductAnalyzeRepositoryImpl implements ProductAnalyzeRepositoryCus
     }
     @Override
     public Page<ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO> findAllByUserIdWithPageable(Long userId, Pageable pageable) {
+        QProduct product = QProduct.product;
+        QProductAnalyze productAnalyze = QProductAnalyze.productAnalyze;
+        QReviewKeyword reviewKeyword = QReviewKeyword.reviewKeyword;
+
         List<ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO> result = queryFactory.select(Projections.constructor(ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO.class,
                         product.productId,
                         product.productName,
@@ -33,7 +40,7 @@ public class ProductAnalyzeRepositoryImpl implements ProductAnalyzeRepositoryCus
                         product.productCategory,
                         product.thumbnail
                 ))
-                .from(product)
+                .from(productAnalyze)
                 .leftJoin(productAnalyze.product, product)
                 .where(productAnalyze.user.userId.eq(userId))
                 .offset(pageable.getOffset())
@@ -56,10 +63,11 @@ public class ProductAnalyzeRepositoryImpl implements ProductAnalyzeRepositoryCus
             productDTO.setKeywordList(keywordCountMap);
         });
 
-        long total = queryFactory.selectFrom(product)
+        long total = queryFactory.selectFrom(productAnalyze)
                 .where(productAnalyze.user.userId.eq(userId))
                 .fetchCount();
 
         return new PageImpl<>(result, pageable, total);
     }
+
 }

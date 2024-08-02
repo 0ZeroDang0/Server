@@ -18,8 +18,10 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeSaveDTO {
         private Long productAnalyzeId;
-        private User user;
-        private Product product;
+        private Long userId;
+        private String userName;
+        private Long productId;
+        private String productName;
     }
 
     @Data
@@ -33,6 +35,14 @@ public class ProductAnalyzeResponseDTO {
         private ProductCategory productCategory;
         private Map<Keyword, Long> keywordList;
         private String thumbnail;
+
+        public ProductAnalyzeFindOneDTO(Long productId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
+            this.productId = productId;
+            this.productName = productName;
+            this.productMl = productMl;
+            this.productCategory = productCategory;
+            this.thumbnail = thumbnail;
+        }
     }
 
     @Data

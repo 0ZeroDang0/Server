@@ -28,7 +28,13 @@ public class ProductAnalyzeMapper {
     }
 
     public ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO toProductAnalyzeSaveResDTO(ProductAnalyze productAnalyze) {
-        return modelMapper.map(productAnalyze, ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO.class);
+        return ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO.builder()
+                .productAnalyzeId(productAnalyze.getProductAnalyzeId())
+                .userId(productAnalyze.getUser().getUserId())
+                .userName(productAnalyze.getUser().getUserName())
+                .productId(productAnalyze.getProduct().getProductId())
+                .productName(productAnalyze.getProduct().getProductName())
+                .build();
     }
 
     public ProductAnalyzeResponseDTO.ProductAnalyzeFindDetailDTO toProductAnalyzeFindDetailDTO(Product product) {
