@@ -7,6 +7,7 @@ import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     @Override
     public Page<ProductResponseDTO.ProductFindOneDTO> findAllByCategoryWithPageable(ProductCategory productCategory, Pageable pageable) {
+        BooleanExpression categoryFilter = (productCategory != null) ? product.productCategory.eq(productCategory) : null;
+
         List<ProductResponseDTO.ProductFindOneDTO> result = queryFactory.select(Projections.constructor(ProductResponseDTO.ProductFindOneDTO.class,
                         product.productId,
                         product.productName,
@@ -36,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                         product.thumbnail
                 ))
                 .from(product)
-                .where(product.productCategory.eq(productCategory))
+                .where(categoryFilter)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -58,11 +61,12 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         });
 
         long total = queryFactory.selectFrom(product)
-                .where(product.productCategory.eq(productCategory))
+                .where(categoryFilter)
                 .fetchCount();
 
         return new PageImpl<>(result, pageable, total);
     }
+
 
     @Override
     public ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId) {
@@ -89,7 +93,9 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .fetchOne();
 
         if (result != null) {
-            List<Sweetener> sweetenerList = queryFactory.selectFrom(sweetener)
+            List<Sweetener> sweetenerList = queryFactory.select(sweetener)
+                    .from(productSweetener)
+                    .join(productSweetener.sweetener, sweetener)
                     .where(productSweetener.product.productId.eq(productId))
                     .fetch();
             result.setSweetenerList(sweetenerList);
@@ -111,6 +117,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
         return result;
     }
+
 
     @Override
     public ProductResponseDTO.ProductFindAllDTO findAllByTOP3() {
@@ -154,7 +161,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                         product.thumbnail
                 ))
                 .from(product)
-                .leftJoin(sweetener).on(productSweetener.product.productId.eq(product.productId))
+                .leftJoin(productSweetener).on(productSweetener.product.productId.eq(product.productId))
+                .leftJoin(productSweetener.sweetener, sweetener)
                 .groupBy(product.productId)
                 .orderBy(sweetener.count().asc())
                 .limit(10)
@@ -177,6 +185,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         });
         return new ProductResponseDTO.ProductFindAllDTO(result);
     }
+
 
     @Override
     public Page<ProductResponseDTO.ProductFindOneDTO> findAllByFilterWithPageable(ProductRequestDTO.ProductFilterDTO productFilterDTO, Pageable pageable) {

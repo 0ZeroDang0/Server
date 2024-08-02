@@ -20,24 +20,24 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private int productMl;
 
-    private String productDescription;
+    private String productDescription; // 원재료 설명
 
     @Column(name = "carbohydrate_g")
-    private float carbohydrateG;
+    private float carbohydrateG; // 탄수화물 g
     @Column(name = "sugar_g")
-    private float sugarG;
+    private float sugarG; // 당 g
     @Column(name = "protein_g")
-    private float proteinG;
+    private float proteinG; // 단백질 g
     @Column(name = "fat_g")
-    private float fatG;
+    private float fatG; // 지방 g
     @Column(name = "saturated_fat_g")
-    private float saturatedFatG;
+    private float saturatedFatG; // 포화 지방 g
     @Column(name = "trans_fat_g")
-    private float transFatG;
+    private float transFatG; // 트랜스 지방 g
     @Column(name = "cholesterol_g")
-    private float cholesterolG;
+    private float cholesterolG; // 콜레스테롤 g
     @Column(name = "sodium_g")
-    private float sodiumG;
+    private float sodiumG; // 나트륨 g
     private int likes;
     private double stars;
     private int reviews;
