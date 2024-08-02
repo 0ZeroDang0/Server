@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SweetenerRepository extends JpaRepository<Sweetener, Long> {
-    List<Sweetener> findByProduct(Product product);
+//    List<Sweetener> findByProductSweetener_Product(Product product);
 }

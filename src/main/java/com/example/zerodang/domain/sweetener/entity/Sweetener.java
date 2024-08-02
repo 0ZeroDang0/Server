@@ -1,6 +1,5 @@
 package com.example.zerodang.domain.sweetener.entity;
 
-import com.example.zerodang.domain.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +19,4 @@ public class Sweetener {
 
     @Enumerated(EnumType.STRING)
     private SweetenerStatus sweetenerStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 }
