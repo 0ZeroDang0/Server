@@ -15,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/member/visitorStats")
-@Tag(name = "VisitorStats", description = "방문자 관련 API")
+@RequestMapping("/api/v1/member/count")
+@Tag(name = "Count", description = "카운트 관련 API")
 @RequiredArgsConstructor
 @Slf4j
 public class CountApiController {

@@ -46,6 +46,11 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/v1/member/auth/**").permitAll()
                                 // 스웨거
                                 .requestMatchers( "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                .requestMatchers( "/api/v1/member/product/**").permitAll()
+                                .requestMatchers( "/api/v1/member/article/**").permitAll()
+                                .requestMatchers( HttpMethod.GET, "/api/v1/member/review/**").permitAll()
+                                .requestMatchers( "/api/v1/member/productAnalyze/**").permitAll()
+                                .requestMatchers( "/api/v1/member/count/**").permitAll()
                                 // GET (User)
                                 .requestMatchers(HttpMethod.GET, "/api/v1/**").hasRole(ZeroDangRole.USER.name())
 
