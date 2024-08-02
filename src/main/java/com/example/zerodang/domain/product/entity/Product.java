@@ -54,4 +54,5 @@ public class Product extends BaseTimeEntity {
     public void plusLikes() {
         this.likes++;
     }
+    public void plusViews() { this.views++; }
 }

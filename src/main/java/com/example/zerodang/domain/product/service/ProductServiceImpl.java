@@ -11,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,6 +45,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId) {
+        Product findProduct = getProduct_id(productId);
+        findProduct.plusViews();
         return productRepository.findDetailByProductId(productId);
     }
 
@@ -54,5 +59,11 @@ public class ProductServiceImpl implements ProductService {
     public Product getProduct_id(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(ErrorCode.NOT_FOUND_PRODUCT));
+    }
+
+    @Scheduled(cron = "0 0 0 * * *") // 매일 00시에 실행
+    @Transactional
+    public void resetProductViews() {
+        productRepository.resetAllProductViews();
     }
 }
