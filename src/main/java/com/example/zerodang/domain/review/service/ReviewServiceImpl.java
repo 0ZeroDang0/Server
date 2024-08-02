@@ -49,6 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Page<ReviewResponseDTO.ReviewDetailDTO> findAllByProductId(Long productId, Pageable pageable) {
         return reviewRepository.findAllByProductId(productId, pageable);
+
     }
 
     @Override
