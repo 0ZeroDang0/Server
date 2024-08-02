@@ -11,11 +11,11 @@ public class ReviewResponseDTO {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Builder
     public static class ReviewDetailDTO {
-        private int userId;
+        private Long userId;
         private String userName;
         private int rating;
         private List<ReviewKeyword> reviewKeywordList;
-        public ReviewDetailDTO(int userId, String userName, int rating) {
+        public ReviewDetailDTO(Long userId, String userName, int rating) {
             this.userId = userId;
             this.userName = userName;
             this.rating = rating;

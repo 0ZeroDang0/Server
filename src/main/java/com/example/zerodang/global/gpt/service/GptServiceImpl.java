@@ -7,8 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+
+import java.time.Duration;
 
 @Service
 @Slf4j
@@ -27,10 +32,10 @@ public class GptServiceImpl implements GptService{
 
     @Override
     public Mono<String> analyzeWithGPT(Product product1, Product product2) {
-        String productName1 = product1.getProductName(); // 제품1 이름
-        String productDescription1 = product1.getProductDescription(); // 제품1 원재료명
-        String productName2 = product2.getProductName(); // 제품2 이름
-        String productDescription2 = product2.getProductDescription(); // 제품2 원재료명
+        String productName1 = product1.getProductName();
+        String productDescription1 = product1.getProductDescription();
+        String productName2 = product2.getProductName();
+        String productDescription2 = product2.getProductDescription();
 
         String prompt = String.format(
                 "이름 : %s\n원재료 : %s\n\n이름 : %s\n원재료 : %s\n\n두 제품에 들어간 감미료들을 찾아주고 두 제품에 들어간 감미료를 보면서 어떤 걸 섭취하는 게 더 나을지 분석해줘.\n" +
@@ -44,6 +49,8 @@ public class GptServiceImpl implements GptService{
                 , productName1, productDescription1, productName2, productDescription2
         );
 
+        System.out.println(prompt);
+
         GPTRequestDTO gptRequestDTO = new GPTRequestDTO(model, prompt);
 
         return gptWebClient.post()
@@ -51,6 +58,6 @@ public class GptServiceImpl implements GptService{
                 .bodyValue(gptRequestDTO)
                 .retrieve()
                 .bodyToMono(GPTResponseDTO.class)
-                .map(response -> response.getChoices().get(0).getMessage().getContent().trim().toUpperCase());
+                .map(response -> response.getChoices().get(0).getMessage().getContent().trim());
     }
 }

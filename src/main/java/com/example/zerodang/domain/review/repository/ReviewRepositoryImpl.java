@@ -41,7 +41,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                             .fetch();
 
                     return ReviewResponseDTO.ReviewDetailDTO.builder()
-                            .userId(r.getUser().getUserId().intValue())
+                            .userId(r.getUser().getUserId())
                             .userName(r.getUser().getUserName())
                             .rating(r.getRating())
                             .reviewKeywordList(reviewKeywords)

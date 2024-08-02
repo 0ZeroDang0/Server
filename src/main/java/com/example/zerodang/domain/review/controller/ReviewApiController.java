@@ -33,7 +33,7 @@ public class ReviewApiController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ReviewResponseDTO.ReviewDetailDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> findAllByCategory(ReviewRequestDTO.ReviewSaveDTO reviewSaveDTO) {
+    public ResponseEntity<?> save(ReviewRequestDTO.ReviewSaveDTO reviewSaveDTO) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), reviewService.save(reviewSaveDTO, SecurityUtil.getCurrentId())));
     }
 

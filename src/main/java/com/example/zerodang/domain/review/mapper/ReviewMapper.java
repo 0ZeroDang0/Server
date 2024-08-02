@@ -29,7 +29,7 @@ public class ReviewMapper {
 
     public ReviewResponseDTO.ReviewDetailDTO toReviewDetailDTO(Review review, List<ReviewKeyword> reviewKeywords) {
         return ReviewResponseDTO.ReviewDetailDTO.builder()
-                .userId(review.getUser().getUserId().intValue())
+                .userId(review.getUser().getUserId())
                 .userName(review.getUser().getUserName())
                 .rating(review.getRating())
                 .reviewKeywordList(reviewKeywords)

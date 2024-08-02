@@ -20,7 +20,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import static com.example.zerodang.global.exception.ErrorCode.NOT_FOUND_PRODUCT_ANALYZE;
 
@@ -80,11 +84,12 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     }
 
     private static List<Sweetener> getSweetenerList(List<Sweetener> sweetenerProduct1, List<Sweetener> sweetenerProduct2) {
-        List<Sweetener> sweetenerList = sweetenerProduct1.stream()
+        Set<Sweetener> sweetenerSet = new HashSet<>();
+        sweetenerProduct1.stream()
                 .filter(sweetener1 -> sweetenerProduct2.stream()
                         .anyMatch(sweetener2 -> sweetener1.getSweetenerName().equals(sweetener2.getSweetenerName())))
-                .collect(Collectors.toList());
-        return sweetenerList;
+                .forEach(sweetenerSet::add);
+        return new ArrayList<>(sweetenerSet);
     }
 
     public ProductAnalyze getProductAnalyze_id(Long productAnalyzeId) {
