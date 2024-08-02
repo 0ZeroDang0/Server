@@ -37,4 +37,6 @@ public class Article extends BaseTimeEntity {
     public void plusLikes() {
         this.likes++;
     }
+
+    public void plusViews() { this.views++; }
 }

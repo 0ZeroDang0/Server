@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
@@ -26,6 +27,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponseDTO.ArticleFindDetailDTO findDetailByArticleId(Long articleId) {
+        Article findArticle = getArticle_id(articleId);
+        findArticle.plusViews();
         return articleRepository.findOneDetailByArticleId(articleId);
     }
 
@@ -36,5 +39,11 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleNotFoundException(ErrorCode.NOT_FOUND_ARTICLE);
         }
         return optionalArticle.get();
+    }
+
+    @Scheduled(cron = "0 0 0 * * *") // 매일 00시에 실행
+    @Transactional
+    public void resetArticleViews() {
+        articleRepository.resetAllArticleViews();
     }
 }
