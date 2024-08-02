@@ -14,6 +14,8 @@ public class Sweetener {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sweetenerId;
 
+    private String sweetenerName;
+
     private String sweetenerDescription;
 
     @Enumerated(EnumType.STRING)

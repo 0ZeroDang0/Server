@@ -9,4 +9,5 @@ public interface ProductAnalyzeService {
     ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO cart(Long productId, Long userId);
     Page<ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO> findAllByUserId(Long userId, Pageable pageable);
     void delete(ProductAnalyzeRequestDTO.ProductAnalyzeDeleteDTO productAnalyzeDeleteDTO, Long userId);
+    ProductAnalyzeResponseDTO.ProductAnalyzeResultDTO result(ProductAnalyzeRequestDTO.ProductAnalyzeComparisonDTO productAnalyzeComparisonDTO);
 }

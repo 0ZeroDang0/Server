@@ -1,23 +1,26 @@
 package com.example.zerodang.domain.productAnalyze.service;
 
+import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.service.ProductService;
 import com.example.zerodang.domain.productAnalyze.dto.request.ProductAnalyzeRequestDTO;
 import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO;
 import com.example.zerodang.domain.productAnalyze.entity.ProductAnalyze;
 import com.example.zerodang.domain.productAnalyze.mapper.ProductAnalyzeMapper;
 import com.example.zerodang.domain.productAnalyze.repository.ProductAnalyzeRepository;
+import com.example.zerodang.domain.sweetener.entity.Sweetener;
+import com.example.zerodang.domain.sweetener.service.SweetenerService;
 import com.example.zerodang.domain.user.entity.User;
 import com.example.zerodang.domain.user.service.UserService;
 import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeNotFoundException;
+import com.example.zerodang.global.gpt.service.GptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
+import java.util.stream.Collectors;
 import static com.example.zerodang.global.exception.ErrorCode.NOT_FOUND_PRODUCT_ANALYZE;
 
 @Service
@@ -27,6 +30,8 @@ import static com.example.zerodang.global.exception.ErrorCode.NOT_FOUND_PRODUCT_
 public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     private final ProductAnalyzeRepository productAnalyzeRepository;
     private final ProductService productService;
+    private final SweetenerService sweetenerService;
+    private final GptService gptService;
     private final UserService userService;
     private final ProductAnalyzeMapper productAnalyzeMapper;
 
@@ -57,6 +62,26 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
                 productAnalyzeRepository.deleteById(productAnalyzeId);
             }
         }
+    }
+
+    @Override
+    public ProductAnalyzeResponseDTO.ProductAnalyzeResultDTO result(ProductAnalyzeRequestDTO.ProductAnalyzeComparisonDTO productAnalyzeComparisonDTO) {
+        Product product1 = productService.getProduct_id(productAnalyzeComparisonDTO.getProductId1());
+        Product product2 = productService.getProduct_id(productAnalyzeComparisonDTO.getProductId2());
+        String resultComment = gptService.analyzeWithGPT(product1, product2).block(); // 영양 분석 결과
+        List<Sweetener> sweetenerProduct1 = sweetenerService.getSweetener_product(product1);
+        List<Sweetener> sweetenerProduct2 = sweetenerService.getSweetener_product(product2);
+        List<Sweetener> sweetenerList = getSweetenerList(sweetenerProduct1, sweetenerProduct2);
+
+        return productAnalyzeMapper.toProductAnalyzeResultDTO(product1, product2, sweetenerList, resultComment);
+    }
+
+    private static List<Sweetener> getSweetenerList(List<Sweetener> sweetenerProduct1, List<Sweetener> sweetenerProduct2) {
+        List<Sweetener> sweetenerList = sweetenerProduct1.stream()
+                .filter(sweetener1 -> sweetenerProduct2.stream()
+                        .anyMatch(sweetener2 -> sweetener1.getSweetenerName().equals(sweetener2.getSweetenerName())))
+                .collect(Collectors.toList());
+        return sweetenerList;
     }
 
     public ProductAnalyze getProductAnalyze_id(Long productAnalyzeId) {

@@ -45,8 +45,6 @@ public class ProductAnalyzeResponseDTO {
         private ProductCategory productCategory;
         private String productImageUrl;
         private int productMl;
-        private List<Sweetener> sweetenerList;
-        private List<Keyword> keywordList;
         private float carbohydrateG;
         private float sugarG;
         private float proteinG;
@@ -62,7 +60,7 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeResultDTO {
         private List<ProductAnalyzeFindDetailDTO> productAnalyzeFindDetailDTOList;
-        private String sweetenerAnalyze;
+        private List<Sweetener> sweetenerList;
         private String resultComment;
     }
 }

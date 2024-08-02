@@ -59,4 +59,14 @@ public class ProductAnalyzeApiController {
         productAnalyzeService.delete(productAnalyzeDeleteDTO, SecurityUtil.getCurrentId());
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value()));
     }
+
+    @PostMapping("/result")
+    @Operation(summary = "상품 비교 결과 API", description = "두 상품의 비교 결과를 반환합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ProductAnalyzeResponseDTO.ProductAnalyzeResultDTO.class)))
+//            @ApiResponse(responseCode = "400", description = "BAD REQUEST")
+    })
+    public ResponseEntity<?> result(@RequestBody ProductAnalyzeRequestDTO.ProductAnalyzeComparisonDTO productAnalyzeComparisonDTO) {
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.OK.value(), productAnalyzeService.result(productAnalyzeComparisonDTO)));
+    }
 }
