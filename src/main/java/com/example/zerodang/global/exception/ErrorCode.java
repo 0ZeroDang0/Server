@@ -21,6 +21,7 @@ public enum ErrorCode {
     INVALID_PASSWORD_USER(401,  "비밀번호가 틀렸습니다."),
     ACCESS_DENIED(403,  "접근 권한이 없습니다."),
     NOT_ACTIVE_USER(403,  "회원이 ACTIVE가 아닙니다."),
+    DUPLICATE_REVIEW(400, "이미 작성된 리뷰가 있습니다."),
 
     /** 5XX **/
     INTERNAL_SERVER_ERROR(500,"INTER SERVER ERROR");

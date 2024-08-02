@@ -2,6 +2,7 @@ package com.example.zerodang.global.exception;
 
 import com.example.zerodang.global.exception.article.ArticleNotFoundException;
 import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeNotFoundException;
+import com.example.zerodang.global.exception.review.ReviewDuplicateException;
 import com.example.zerodang.global.exception.secure.SecureException;
 import com.example.zerodang.global.exception.user.UserEmailDuplicationException;
 import com.example.zerodang.global.exception.user.UserInvalidPasswordException;
@@ -76,6 +77,16 @@ public class ExceptionCustomAdvice {
                         ErrorCode.NOT_FOUND_PRODUCT_ANALYZE.getStatus(),
                         ex.getMessage()),
                 HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReviewDuplicateException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(ReviewDuplicateException ex) {
+        log.debug(ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                new ApiErrorResponse(
+                        ErrorCode.DUPLICATE_REVIEW.getStatus(),
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SecureException.JwtCreateException.class)
