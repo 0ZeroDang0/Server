@@ -15,6 +15,11 @@ public class ReviewResponseDTO {
         private String userName;
         private int rating;
         private List<ReviewKeyword> reviewKeywordList;
+        public ReviewDetailDTO(int userId, String userName, int rating) {
+            this.userId = userId;
+            this.userName = userName;
+            this.rating = rating;
+        }
     }
     @Data
     @AllArgsConstructor

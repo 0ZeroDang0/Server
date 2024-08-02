@@ -18,7 +18,7 @@ public class VisitorStats {
 
     private int totalVisitCount;
 
-    public void setTotalVisitCount(int count) {
-        this.totalVisitCount = count;
+    public void setTotalVisitCount() {
+        this.totalVisitCount++;
     }
 }

@@ -33,7 +33,7 @@ public class CountApiController {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value()));
     }
 
-    @PostMapping("/findVisitorStatsCount")
+    @GetMapping("/findVisitorStatsCount")
     @Operation(summary = "방문자 수 조회", description = "방문자 수를 조 합니다.")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = VisitorStatsResponseDTO.VisitorStatsCountDTO.class)))

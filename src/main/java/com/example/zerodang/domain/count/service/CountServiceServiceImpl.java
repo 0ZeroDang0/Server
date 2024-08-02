@@ -25,6 +25,9 @@ public class CountServiceServiceImpl implements CountService {
     @Transactional
     public void recordVisit() {
         redisTemplate.opsForValue().increment(TODAY_VISITS_KEY);
+        VisitorStats stats = visitorStatsRepository.findById(1L)
+                .orElseGet(() -> new VisitorStats(1L, 0));
+        stats.setTotalVisitCount();
     }
     @Override
     @Transactional
@@ -61,11 +64,6 @@ public class CountServiceServiceImpl implements CountService {
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void resetDailyCounts() {
-        int todayVisits = getTodayVisitCount();
-        VisitorStats stats = visitorStatsRepository.findById(1L)
-                .orElseGet(() -> new VisitorStats(1L, 0));
-        stats.setTotalVisitCount(stats.getTotalVisitCount() + todayVisits);
-
         redisTemplate.delete(TODAY_VISITS_KEY);
         redisTemplate.delete(TODAY_COMPARISONS_KEY);
     }
