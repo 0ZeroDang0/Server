@@ -44,9 +44,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponseDTO.ProductDetailDTO findDetailByProductId(Long productId) {
-        Product findProduct = getProduct_id(productId);
-        findProduct.plusViews();
+        getProduct_id(productId).plusViews();
         return productRepository.findDetailByProductId(productId);
     }
 

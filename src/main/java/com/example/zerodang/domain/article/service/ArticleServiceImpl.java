@@ -26,9 +26,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public ArticleResponseDTO.ArticleFindDetailDTO findDetailByArticleId(Long articleId) {
-        Article findArticle = getArticle_id(articleId);
-        findArticle.plusViews();
+        getArticle_id(articleId).plusViews();
         return articleRepository.findOneDetailByArticleId(articleId);
     }
 
