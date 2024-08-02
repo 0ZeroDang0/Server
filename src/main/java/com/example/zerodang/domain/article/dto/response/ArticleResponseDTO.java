@@ -45,5 +45,18 @@ public class ArticleResponseDTO {
         private int likes;
         private String thumbnail;
         private List<String> articleImageList;
+
+        public ArticleFindDetailDTO(Long articleId, String title, String author, String summary, String content, LocalDateTime date, String hashTag, int views, int likes, String thumbnail) {
+            this.articleId = articleId;
+            this.title = title;
+            this.author = author;
+            this.summary = summary;
+            this.content = content;
+            this.date = date;
+            this.hashTag = hashTag;
+            this.views = views;
+            this.likes = likes;
+            this.thumbnail = thumbnail;
+        }
     }
 }
