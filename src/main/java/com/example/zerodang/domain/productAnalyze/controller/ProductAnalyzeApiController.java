@@ -69,5 +69,4 @@ public class ProductAnalyzeApiController {
     public ResponseEntity<?> result(@RequestBody ProductAnalyzeRequestDTO.ProductAnalyzeComparisonDTO productAnalyzeComparisonDTO) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.OK.value(), productAnalyzeService.result(productAnalyzeComparisonDTO)));
     }
-
 }
