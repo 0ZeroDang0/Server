@@ -4,6 +4,7 @@ import com.example.zerodang.domain.product.service.ProductService;
 import com.example.zerodang.domain.review.dto.request.ReviewRequestDTO;
 import com.example.zerodang.domain.review.dto.response.ReviewResponseDTO;
 import com.example.zerodang.domain.review.entity.Review;
+import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
 import com.example.zerodang.domain.reviewKeyword.entity.ReviewKeyword;
 import com.example.zerodang.domain.review.mapper.ReviewMapper;
 import com.example.zerodang.domain.review.repository.ReviewRepository;
@@ -31,12 +32,12 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewMapper reviewMapper;
 
     @Override
+    @Transactional
     public ReviewResponseDTO.ReviewDetailDTO save(ReviewRequestDTO.ReviewSaveDTO reviewSaveDTO, Long userId) {
         Review review = reviewMapper.toReviewEntity(reviewSaveDTO, productService.getProduct_id(reviewSaveDTO.getProductId()), userService.getUser_Id(userId));
         reviewRepository.save(review);
-
-        List<ReviewKeyword> reviewKeywordList = reviewKeywordService.saveReviewKeywords(review);
-        return reviewMapper.toReviewDetailDTO(review, reviewKeywordList);
+        List<ReviewKeyword> reviewKeywords = reviewKeywordService.saveReviewKeywords(review, reviewSaveDTO.getKeywordList());
+        return reviewMapper.toReviewDetailDTO(review, reviewKeywords);
     }
 
     @Override

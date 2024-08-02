@@ -10,11 +10,19 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Builder
+    public static class KeyWordDTO {
+        private Long keywordId;
+        private String keyword;
+    }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
     public static class ReviewDetailDTO {
         private Long userId;
         private String userName;
         private int rating;
-        private List<ReviewKeyword> reviewKeywordList;
+        private List<KeyWordDTO> keyWordDTOList;
         public ReviewDetailDTO(Long userId, String userName, int rating) {
             this.userId = userId;
             this.userName = userName;

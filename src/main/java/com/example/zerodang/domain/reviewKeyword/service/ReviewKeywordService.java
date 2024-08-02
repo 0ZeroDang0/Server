@@ -7,5 +7,5 @@ import com.example.zerodang.domain.reviewKeyword.entity.ReviewKeyword;
 import java.util.List;
 
 public interface ReviewKeywordService {
-    List<ReviewKeyword> saveReviewKeywords(Review review);
+    List<ReviewKeyword> saveReviewKeywords(Review review, List<Keyword> keywordList);
 }

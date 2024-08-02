@@ -36,15 +36,18 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
         List<ReviewResponseDTO.ReviewDetailDTO> reviewDetailDTOList = reviews.stream()
                 .map(r -> {
-                    List<ReviewKeyword> reviewKeywords = queryFactory.selectFrom(reviewKeyword)
+                    List<ReviewResponseDTO.KeyWordDTO> reviewKeywords = queryFactory.selectFrom(reviewKeyword)
                             .where(reviewKeyword.review.reviewId.eq(r.getReviewId()))
-                            .fetch();
+                            .fetch()
+                            .stream()
+                            .map(kw -> new ReviewResponseDTO.KeyWordDTO(kw.getReviewKeywordId(), kw.getKeyword().name()))
+                            .collect(Collectors.toList());
 
                     return ReviewResponseDTO.ReviewDetailDTO.builder()
                             .userId(r.getUser().getUserId())
                             .userName(r.getUser().getUserName())
                             .rating(r.getRating())
-                            .reviewKeywordList(reviewKeywords)
+                            .keyWordDTOList(reviewKeywords)
                             .build();
                 })
                 .collect(Collectors.toList());

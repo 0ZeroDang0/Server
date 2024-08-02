@@ -23,8 +23,8 @@ public class ReviewKeywordServiceImpl implements ReviewKeywordService {
 
     @Override
     @Transactional
-    public List<ReviewKeyword> saveReviewKeywords(Review review) {
-        List<Keyword> keywordList = new ArrayList<>();
-        return reviewKeywordRepository.saveAll(reviewKeywordMapper.toReviewKeywordEntities(review, keywordList));
+    public List<ReviewKeyword> saveReviewKeywords(Review review, List<Keyword> keywordList) {
+        List<ReviewKeyword> result = reviewKeywordMapper.toReviewKeywordEntities(review, keywordList);
+        return reviewKeywordRepository.saveAll(result);
     }
 }
