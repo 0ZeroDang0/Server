@@ -78,7 +78,7 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
         List<Sweetener> sweetenerProduct1 = productSweetenerService.getSweetenersByProduct(product1);
         List<Sweetener> sweetenerProduct2 = productSweetenerService.getSweetenersByProduct(product2);
         List<Sweetener> sweetenerList = getSweetenerList(sweetenerProduct1, sweetenerProduct2);
-        countService.recordComparison(); // 비교 횟수 증가
+//        countService.recordComparison(); // 비교 횟수 증가
 
         return productAnalyzeMapper.toProductAnalyzeResultDTO(product1, product2, sweetenerList, resultComment);
     }
