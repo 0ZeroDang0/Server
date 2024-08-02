@@ -33,13 +33,13 @@ public class CountApiController {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value()));
     }
 
-    @GetMapping("/findVisitorStatsCount")
-    @Operation(summary = "방문자 수 조회", description = "방문자 수를 조 합니다.")
+    @GetMapping("/findCount")
+    @Operation(summary = "카운트 조회", description = "카운트 조회 합니다.")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "SUCCESS", content = @Content(schema = @Schema(implementation = VisitorStatsResponseDTO.VisitorStatsCountDTO.class)))
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> findVisitorStatsCount() {
+    public ResponseEntity<?> findCount() {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), visitorStatsService.findCount()));
     }
 }

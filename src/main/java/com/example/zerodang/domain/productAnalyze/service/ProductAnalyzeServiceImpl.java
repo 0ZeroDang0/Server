@@ -1,5 +1,6 @@
 package com.example.zerodang.domain.productAnalyze.service;
 
+import com.example.zerodang.domain.count.service.CountService;
 import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.service.ProductService;
 import com.example.zerodang.domain.productAnalyze.dto.request.ProductAnalyzeRequestDTO;
@@ -33,6 +34,7 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     private final SweetenerService sweetenerService;
     private final GptService gptService;
     private final UserService userService;
+    private final CountService countService;
     private final ProductAnalyzeMapper productAnalyzeMapper;
 
     @Override
@@ -72,6 +74,7 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
         List<Sweetener> sweetenerProduct1 = sweetenerService.getSweetener_product(product1);
         List<Sweetener> sweetenerProduct2 = sweetenerService.getSweetener_product(product2);
         List<Sweetener> sweetenerList = getSweetenerList(sweetenerProduct1, sweetenerProduct2);
+        countService.recordComparison(); // 비교 횟수 증가
 
         return productAnalyzeMapper.toProductAnalyzeResultDTO(product1, product2, sweetenerList, resultComment);
     }
