@@ -42,7 +42,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 .where(articleImage.article.articleId.eq(articleId))
                 .fetch();
 
-        return result.builder().articleImageList(articleUrlList).build();
+        result.builder().articleImageList(articleUrlList).build();
+        return result;
     }
 
 
