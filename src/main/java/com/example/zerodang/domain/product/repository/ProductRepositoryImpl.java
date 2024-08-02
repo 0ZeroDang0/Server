@@ -154,6 +154,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                         product.productCategory,
                         product.thumbnail
                 ))
+                .from(product)
                 .leftJoin(sweetener).on(sweetener.product.productId.eq(product.productId))
                 .groupBy(product.productId)
                 .orderBy(sweetener.count().asc())

@@ -60,7 +60,7 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeResultDTO {
         private List<ProductAnalyzeFindDetailDTO> productAnalyzeFindDetailDTOList;
-        private List<Sweetener> sweetenerList;
+        private List<Sweetener> sweetenerList; // 이 부분 product 데이터 들어감
         private String resultComment;
     }
 }

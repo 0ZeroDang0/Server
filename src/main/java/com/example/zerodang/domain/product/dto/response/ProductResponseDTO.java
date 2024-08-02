@@ -20,6 +20,14 @@ public class ProductResponseDTO {
         private ProductCategory productCategory;
         private Map<Keyword, Long> keywordList;
         private String thumbnail;
+
+        public ProductFindOneDTO(Long productId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
+            this.productId = productId;
+            this.productName = productName;
+            this.productMl = productMl;
+            this.productCategory = productCategory;
+            this.thumbnail = thumbnail;
+        }
     }
     @Data
     @AllArgsConstructor
@@ -52,6 +60,24 @@ public class ProductResponseDTO {
         private float sodiumG;
         private String productDescription;
 
-        // 감미료 상세 정보 어떻게 할 건지 고아열이랑 대화 나누기
+        public ProductDetailDTO(Long productId, String productName, ProductCategory productCategory, String thumbnail, int productMl, double stars, int likes, float carbohydrateG, float sugarG, float proteinG, float fatG, float saturatedFatG, float transFatG, float cholesterolG, float sodiumG, String productDescription) {
+            this.productId = productId;
+            this.productName = productName;
+            this.productCategory = productCategory;
+            this.thumbnail = thumbnail;
+            this.productMl = productMl;
+            this.stars = stars;
+            this.likes = likes;
+            this.carbohydrateG = carbohydrateG;
+            this.sugarG = sugarG;
+            this.proteinG = proteinG;
+            this.fatG = fatG;
+            this.saturatedFatG = saturatedFatG;
+            this.transFatG = transFatG;
+            this.cholesterolG = cholesterolG;
+            this.sodiumG = sodiumG;
+            this.productDescription = productDescription;
+        }
+// 감미료 상세 정보 어떻게 할 건지 고아열이랑 대화 나누기
     }
 }
