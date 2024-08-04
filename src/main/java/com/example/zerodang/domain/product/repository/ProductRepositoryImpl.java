@@ -78,6 +78,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                         product.productMl,
                         product.stars,
                         product.likes,
+                        product.kcal,
                         product.carbohydrateG,
                         product.sugarG,
                         product.proteinG,

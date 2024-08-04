@@ -4,12 +4,8 @@ import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO;
 import com.example.zerodang.domain.productAnalyze.entity.ProductAnalyze;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
-import com.example.zerodang.domain.user.dto.request.UserRequestDTO;
-import com.example.zerodang.domain.user.dto.response.UserResponseDTO;
 import com.example.zerodang.domain.user.entity.User;
-import com.example.zerodang.domain.user.entity.UserStatus;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -44,6 +40,7 @@ public class ProductAnalyzeMapper {
                 .productCategory(product.getProductCategory())
                 .productImageUrl(product.getThumbnail())
                 .productMl(product.getProductMl())
+                .kcal(product.getKcal())
                 .carbohydrateG(product.getCarbohydrateG())
                 .sugarG(product.getSugarG())
                 .proteinG(product.getProteinG())

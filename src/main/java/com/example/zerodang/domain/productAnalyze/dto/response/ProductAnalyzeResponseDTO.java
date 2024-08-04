@@ -54,6 +54,7 @@ public class ProductAnalyzeResponseDTO {
         private String productName;
         private ProductCategory productCategory;
         private String productImageUrl;
+        private float kcal;
         private int productMl;
         private float carbohydrateG;
         private float sugarG;

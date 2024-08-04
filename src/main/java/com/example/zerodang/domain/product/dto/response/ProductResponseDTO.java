@@ -50,6 +50,7 @@ public class ProductResponseDTO {
         private int likes;
         private List<Sweetener> sweetenerList;
         private Map<Keyword, Long> keywordList;
+        private float kcal;
         private float carbohydrateG;
         private float sugarG;
         private float proteinG;
@@ -60,7 +61,7 @@ public class ProductResponseDTO {
         private float sodiumG;
         private String productDescription;
 
-        public ProductDetailDTO(Long productId, String productName, ProductCategory productCategory, String thumbnail, int productMl, double stars, int likes, float carbohydrateG, float sugarG, float proteinG, float fatG, float saturatedFatG, float transFatG, float cholesterolG, float sodiumG, String productDescription) {
+        public ProductDetailDTO(Long productId, String productName, ProductCategory productCategory, String thumbnail, int productMl, double stars, int likes, float kcal, float carbohydrateG, float sugarG, float proteinG, float fatG, float saturatedFatG, float transFatG, float cholesterolG, float sodiumG, String productDescription) {
             this.productId = productId;
             this.productName = productName;
             this.productCategory = productCategory;
@@ -68,6 +69,7 @@ public class ProductResponseDTO {
             this.productMl = productMl;
             this.stars = stars;
             this.likes = likes;
+            this.kcal = kcal;
             this.carbohydrateG = carbohydrateG;
             this.sugarG = sugarG;
             this.proteinG = proteinG;

@@ -22,6 +22,7 @@ public class Product extends BaseTimeEntity {
 
     private String productDescription; // 원재료 설명
 
+    private float kcal; // 칼로리
     @Column(name = "carbohydrate_g")
     private float carbohydrateG; // 탄수화물 g
     @Column(name = "sugar_g")
