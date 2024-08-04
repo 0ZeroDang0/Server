@@ -44,6 +44,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/member/auth/**").permitAll()
+                                // 카카오
+                                .requestMatchers("/oauth/**", "login/**").permitAll()
                                 // 스웨거
                                 .requestMatchers( "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers( "/api/v1/member/product/**").permitAll()

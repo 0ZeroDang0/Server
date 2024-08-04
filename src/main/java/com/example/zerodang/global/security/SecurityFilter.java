@@ -35,7 +35,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
     private static final Set<String> EXCLUDED_PATHS = Set.of(
             "/api/v1/member/user/auth/**",
-            "/swagger-ui/**", "/v3/api-docs/**"
+            "/swagger-ui/**", "/v3/api-docs/**",
+            "/oauth2/**"
     );
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
