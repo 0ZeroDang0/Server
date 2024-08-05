@@ -1,6 +1,7 @@
 package com.example.zerodang.global.exception;
 
 import com.example.zerodang.global.exception.article.ArticleNotFoundException;
+import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeDuplicationException;
 import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeNotFoundException;
 import com.example.zerodang.global.exception.review.ReviewDuplicateException;
 import com.example.zerodang.global.exception.secure.SecureException;
@@ -85,6 +86,16 @@ public class ExceptionCustomAdvice {
         return new ResponseEntity<>(
                 new ApiErrorResponse(
                         ErrorCode.DUPLICATE_REVIEW.getStatus(),
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductAnalyzeDuplicationException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(ProductAnalyzeDuplicationException ex) {
+        log.debug(ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                new ApiErrorResponse(
+                        ErrorCode.DUPLICATE_CART.getStatus(),
                         ex.getMessage()),
                 HttpStatus.BAD_REQUEST);
     }

@@ -6,6 +6,7 @@ import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.service.ProductService;
 import com.example.zerodang.domain.productAnalyze.dto.request.ProductAnalyzeRequestDTO;
 import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO;
+import com.example.zerodang.domain.productAnalyze.dto.response.ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO;
 import com.example.zerodang.domain.productAnalyze.entity.ProductAnalyze;
 import com.example.zerodang.domain.productAnalyze.mapper.ProductAnalyzeMapper;
 import com.example.zerodang.domain.productAnalyze.repository.ProductAnalyzeRepository;
@@ -13,6 +14,7 @@ import com.example.zerodang.domain.productSweetener.service.ProductSweetenerServ
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
 import com.example.zerodang.domain.user.entity.User;
 import com.example.zerodang.domain.user.service.UserService;
+import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeDuplicationException;
 import com.example.zerodang.global.exception.productAnalyze.ProductAnalyzeNotFoundException;
 import com.example.zerodang.global.gpt.service.GptService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static com.example.zerodang.global.exception.ErrorCode.DUPLICATE_CART;
 import static com.example.zerodang.global.exception.ErrorCode.NOT_FOUND_PRODUCT_ANALYZE;
 
 @Service
@@ -44,7 +45,16 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
 
     @Override
     @Transactional
-    public ProductAnalyzeResponseDTO.ProductAnalyzeSaveDTO cart(Long productId, Long userId) {
+    public ProductAnalyzeSaveDTO cart(Long productId, Long userId) {
+        Product findProduct = productService.getProduct_id(productId);
+        User findUser = userService.getUser_Id(userId);
+
+        Optional<ProductAnalyze> existingProductAnalyze = productAnalyzeRepository.findByProductAndUser(findProduct, findUser);
+        if (existingProductAnalyze.isPresent()) {
+            throw new ProductAnalyzeDuplicationException(DUPLICATE_CART);
+        }
+
+
         ProductAnalyze productAnalyze = productAnalyzeMapper.toProductAnalyzeEntity(productService.getProduct_id(productId), userService.getUser_Id(userId));
         productAnalyzeRepository.save(productAnalyze);
         return productAnalyzeMapper.toProductAnalyzeSaveResDTO(productAnalyze);
