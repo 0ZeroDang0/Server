@@ -44,6 +44,7 @@ public class JwtProvider {
     private SecretKey partnerAccessToken;
     private SecretKey partnerRefreshToken;
 
+
     public void oauthCreateJwtDto(HttpServletResponse response, String email) throws IOException {
         // email을 userId로 변환하는 로직이 필요합니다.
         // 여기서는 가정적으로 이메일에서 userId를 가져온다고 가정합니다.
