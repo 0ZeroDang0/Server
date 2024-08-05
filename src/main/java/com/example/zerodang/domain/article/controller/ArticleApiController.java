@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ArticleApiController {
     private final ArticleService articleService;
-
     @GetMapping("/findDetail/{articleId}")
     @Operation(summary = "아티클 하나 조회", description = "아티클 하나를 조회합니다.")
     @ApiResponses(value = {
