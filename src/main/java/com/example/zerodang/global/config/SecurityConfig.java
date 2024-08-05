@@ -29,16 +29,16 @@ public class SecurityConfig {
     private final SecurityDeniedHandler securityDeniedHandler;
     private final SecurityExceptionHandler securityExceptionHandler;
     private final UserRepository userRepository;
-//    private final PrincipalOauth2UserService principalOauth2UserService;
-//    private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
+    private final PrincipalOauth2UserService principalOauth2UserService;
+    private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
 
-    public SecurityConfig(@Autowired JwtProvider jwtProvider, UserRepository userRepository) {
+    public SecurityConfig(@Autowired JwtProvider jwtProvider, UserRepository userRepository, PrincipalOauth2UserService principalOauth2UserService, Oauth2LoginSuccessHandler oauth2LoginSuccessHandler) {
         this.jwtProvider = jwtProvider;
         this.userRepository = userRepository;
         this.securityDeniedHandler = new SecurityDeniedHandler();
         this.securityExceptionHandler = new SecurityExceptionHandler();
-//        this.principalOauth2UserService = principalOauth2UserService;
-//        this.oauth2LoginSuccessHandler = oauth2LoginSuccessHandler;
+        this.principalOauth2UserService = principalOauth2UserService;
+        this.oauth2LoginSuccessHandler = oauth2LoginSuccessHandler;
     }
 
     @Bean
@@ -80,11 +80,11 @@ public class SecurityConfig {
 //                                .requestMatchers("/error").permitAll()
 //                                .requestMatchers("/**").denyAll()
                 )
-//                .oauth2Login(login -> login
-//                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-//                                .userService(principalOauth2UserService))
-//                        .successHandler(oauth2LoginSuccessHandler)
-//                )
+                .oauth2Login(login -> login
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(principalOauth2UserService))
+                        .successHandler(oauth2LoginSuccessHandler)
+                )
                 .with(
                         new ZeroDangSecurityConfigurerAdapter(jwtProvider, userRepository),
                         it -> {}

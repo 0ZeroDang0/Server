@@ -44,7 +44,23 @@ public class JwtProvider {
     private SecretKey partnerAccessToken;
     private SecretKey partnerRefreshToken;
 
+    public Map<String, String> oauthCreateJwtDto(String email) throws IOException {
+        // email을 userId로 변환하는 로직
+        Long userId = userRepository.findByUserEmail(email).get().getUserId();
+        String accessToken;
+        String refreshToken;
+        Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
+        Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
 
+        accessToken = createUserAccessToken(userId, accessTokenExpiredDate);
+        refreshToken = createUserRefreshToken(userId, refreshTokenExpiredDate);
+
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("accessToken", accessToken);
+        tokenMap.put("refreshToken", refreshToken);
+
+        return tokenMap;
+    }
     public void oauthCreateJwtDto(HttpServletResponse response, String email) throws IOException {
         Long userId = userRepository.findByUserEmail(email).get().getUserId();
         String accessToken;
@@ -64,23 +80,6 @@ public class JwtProvider {
         log.info("accessToken : {}", accessToken);
         log.info("refreshToken : {}", refreshToken);
         new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
-    }
-    public Map<String, String> oauthCreateJwtDto(String email) throws IOException {
-        // email을 userId로 변환하는 로직
-        Long userId = userRepository.findByUserEmail(email).get().getUserId();
-        String accessToken;
-        String refreshToken;
-        Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
-        Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
-
-        accessToken = createUserAccessToken(userId, accessTokenExpiredDate);
-        refreshToken = createUserRefreshToken(userId, refreshTokenExpiredDate);
-
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("accessToken", accessToken);
-        tokenMap.put("refreshToken", refreshToken);
-
-        return tokenMap;
     }
 
 //    public void oauthCreateJwtDto(HttpServletResponse response, UserDetails userDetails) throws IOException {
