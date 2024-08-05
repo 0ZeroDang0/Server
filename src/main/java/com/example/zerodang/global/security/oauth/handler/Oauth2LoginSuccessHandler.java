@@ -39,5 +39,6 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .build().toUriString();
 
         response.sendRedirect(redirectUrl);
+
     }
 }
