@@ -1,14 +1,21 @@
 package com.example.zerodang.global.security.jwt;
 
+import com.example.zerodang.domain.user.repository.UserRepository;
+import com.example.zerodang.domain.user.service.UserService;
 import com.example.zerodang.global.exception.secure.SecureException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.oauth2.sdk.token.RefreshToken;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.sql.Timestamp;
@@ -16,12 +23,17 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.zerodang.global.security.jwt.ZeroDangRole.PARTNER;
+import static com.example.zerodang.global.security.jwt.ZeroDangRole.USER;
 
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
     private final JwtProperties jwtProperties;
+    private final UserRepository userRepository;
     private final Logger log = LoggerFactory.getLogger(JwtProvider.class);
 
     private final static String JWT_TOKEN_ID = "PETAROUND_API";
@@ -31,6 +43,45 @@ public class JwtProvider {
     private SecretKey memberRefreshToken;
     private SecretKey partnerAccessToken;
     private SecretKey partnerRefreshToken;
+
+    public void oauthCreateJwtDto(HttpServletResponse response, String email) throws IOException {
+        // email을 userId로 변환하는 로직이 필요합니다.
+        // 여기서는 가정적으로 이메일에서 userId를 가져온다고 가정합니다.
+        Long userId = userRepository.findByUserEmail(email).get().getUserId();
+        String accessToken;
+        String refreshToken;
+        Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
+        Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
+
+        accessToken = createUserAccessToken(userId, accessTokenExpiredDate);
+        refreshToken = createUserRefreshToken(userId, refreshTokenExpiredDate);
+
+        response.addHeader("Authorization", "Bearer " + accessToken);
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("accessToken", accessToken);
+        tokenMap.put("refreshToken", refreshToken);
+        response.setContentType("application/json");
+
+        new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
+    }
+//    public void oauthCreateJwtDto(HttpServletResponse response, UserDetails userDetails) throws IOException {
+//        String accessToken;
+//        String refreshToken;
+//        Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
+//        Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
+//
+//        accessToken = createUserAccessToken(Long.parseLong(userDetails.getUsername()), accessTokenExpiredDate);
+//        refreshToken = createUserRefreshToken(Long.parseLong(userDetails.getUsername()), refreshTokenExpiredDate);
+//
+//        response.addHeader("Authorization", "Bearer " + accessToken);
+//        Map<String, String> tokenMap = new HashMap<>();
+//        tokenMap.put("accessToken", accessToken);
+//        tokenMap.put("refreshToken", refreshToken);
+//        response.setContentType("application/json");
+//
+//        new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
+//    }
+
 
     @PostConstruct
     public void init() {
@@ -97,19 +148,19 @@ public class JwtProvider {
     }
 
     public String createUserAccessToken(Long userId, Date expiredDate) {
-        return this.createToken(userId, expiredDate, memberAccessToken, ZeroDangRole.USER);
+        return this.createToken(userId, expiredDate, memberAccessToken, USER);
     }
 
     public String createUserRefreshToken(Long userId, Date expiredDate) {
-        return this.createToken(userId, expiredDate, memberRefreshToken, ZeroDangRole.USER);
+        return this.createToken(userId, expiredDate, memberRefreshToken, USER);
     }
 
     public String createPartnerAccessToken(Long userId, Date expiredDate) {
-        return this.createToken(userId, expiredDate, partnerAccessToken, ZeroDangRole.PARTNER);
+        return this.createToken(userId, expiredDate, partnerAccessToken, PARTNER);
     }
 
     public String createPartnerRefreshToken(Long userId, Date expiredDate) {
-        return this.createToken(userId, expiredDate, partnerRefreshToken, ZeroDangRole.PARTNER);
+        return this.createToken(userId, expiredDate, partnerRefreshToken, PARTNER);
     }
 
     private String createToken(
@@ -140,11 +191,11 @@ public class JwtProvider {
     }
 
     public Long getMemberId(String jwt) {
-        return getUserIdByJwt(jwt, ZeroDangRole.USER, JwtType.ACCESS);
+        return getUserIdByJwt(jwt, USER, JwtType.ACCESS);
     }
 
     public Long getPartnerId(String jwt) {
-        return getUserIdByJwt(jwt, ZeroDangRole.PARTNER, JwtType.ACCESS);
+        return getUserIdByJwt(jwt, PARTNER, JwtType.ACCESS);
     }
 
     private Long getUserIdByJwt(String jwt, ZeroDangRole subject, JwtType type) {

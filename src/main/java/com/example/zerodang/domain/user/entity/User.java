@@ -1,6 +1,7 @@
 package com.example.zerodang.domain.user.entity;
 
 import com.example.zerodang.global.entity.BaseTimeEntity;
+import com.example.zerodang.global.security.jwt.ZeroDangRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,12 +26,17 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String userName;
 
+    private String userImg;
+
     private String kakaoId;
 
     private LocalDateTime lastLogin;
 
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
+
+    @Enumerated(EnumType.STRING)
+    private ZeroDangRole zeroDangRole;
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
