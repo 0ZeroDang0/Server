@@ -8,20 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/member/kakao")
 @Tag(name = "Kakao", description = "카카오 관련 API")
 @RequiredArgsConstructor
 @Slf4j
 public class KakaoApiController {
     private final KakaoService kakaoService;
     /** 카카오 로그인 **/
-    @GetMapping("/kakao")
+    @GetMapping("/login/oauth2/callback/kakao")
     public ResponseEntity<?> kakao(@RequestParam(value = "code") String code) {
-        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), kakaoService.kakao(code)));
+//        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), kakaoService.kakao(code)));
+        return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), "시발 좆같다 카카오톡"));
     }
 }
