@@ -32,6 +32,7 @@ public class CountServiceServiceImpl implements CountService {
     @Override
     @Transactional
     public void recordComparison() {
+        log.info("Incrementing comparison count in Redis");
         redisTemplate.opsForValue().increment(TODAY_COMPARISONS_KEY);
     }
 

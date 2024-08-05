@@ -1,5 +1,6 @@
 package com.example.zerodang.domain.productAnalyze.service;
 
+import com.example.zerodang.domain.comparison.service.ComparisonService;
 import com.example.zerodang.domain.count.service.CountService;
 import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.service.ProductService;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import static com.example.zerodang.global.exception.ErrorCode.NOT_FOUND_PRODUCT_ANALYZE;
 
 @Service
@@ -39,6 +39,7 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     private final GptService gptService;
     private final UserService userService;
     private final CountService countService;
+    private final ComparisonService comparisonService;
     private final ProductAnalyzeMapper productAnalyzeMapper;
 
     @Override
@@ -71,6 +72,7 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
     }
 
     @Override
+    @Transactional
     public ProductAnalyzeResponseDTO.ProductAnalyzeResultDTO result(ProductAnalyzeRequestDTO.ProductAnalyzeComparisonDTO productAnalyzeComparisonDTO) {
         Product product1 = productService.getProduct_id(productAnalyzeComparisonDTO.getProductId1());
         Product product2 = productService.getProduct_id(productAnalyzeComparisonDTO.getProductId2());
@@ -78,7 +80,9 @@ public class ProductAnalyzeServiceImpl implements ProductAnalyzeService {
         List<Sweetener> sweetenerProduct1 = productSweetenerService.getSweetenersByProduct(product1);
         List<Sweetener> sweetenerProduct2 = productSweetenerService.getSweetenersByProduct(product2);
         List<Sweetener> sweetenerList = getSweetenerList(sweetenerProduct1, sweetenerProduct2);
+
         countService.recordComparison(); // 비교 횟수 증가
+        comparisonService.comparison(productAnalyzeComparisonDTO.getProductId1(), productAnalyzeComparisonDTO.getProductId2());
 
         return productAnalyzeMapper.toProductAnalyzeResultDTO(product1, product2, sweetenerList, resultComment);
     }
