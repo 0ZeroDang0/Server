@@ -7,6 +7,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.web.client.RestTemplate;
 
 // docker run -d -p 6379:6379 redis
 @Configuration
@@ -16,7 +17,10 @@ public class RedisConfig {
 
     @Value("${jwt.redis.port}")
     private int port;
-
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(host, port);

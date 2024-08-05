@@ -46,8 +46,6 @@ public class JwtProvider {
 
 
     public void oauthCreateJwtDto(HttpServletResponse response, String email) throws IOException {
-        // email을 userId로 변환하는 로직이 필요합니다.
-        // 여기서는 가정적으로 이메일에서 userId를 가져온다고 가정합니다.
         Long userId = userRepository.findByUserEmail(email).get().getUserId();
         String accessToken;
         String refreshToken;
@@ -63,8 +61,28 @@ public class JwtProvider {
         tokenMap.put("refreshToken", refreshToken);
         response.setContentType("application/json");
 
+        log.info("accessToken : {}", accessToken);
+        log.info("refreshToken : {}", refreshToken);
         new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
     }
+    public Map<String, String> oauthCreateJwtDto(String email) throws IOException {
+        // email을 userId로 변환하는 로직
+        Long userId = userRepository.findByUserEmail(email).get().getUserId();
+        String accessToken;
+        String refreshToken;
+        Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
+        Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
+
+        accessToken = createUserAccessToken(userId, accessTokenExpiredDate);
+        refreshToken = createUserRefreshToken(userId, refreshTokenExpiredDate);
+
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("accessToken", accessToken);
+        tokenMap.put("refreshToken", refreshToken);
+
+        return tokenMap;
+    }
+
 //    public void oauthCreateJwtDto(HttpServletResponse response, UserDetails userDetails) throws IOException {
 //        String accessToken;
 //        String refreshToken;
