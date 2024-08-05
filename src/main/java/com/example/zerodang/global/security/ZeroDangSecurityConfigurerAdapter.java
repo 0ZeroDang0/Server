@@ -13,7 +13,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class ZeroDangSecurityConfigurerAdapter extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-
     @Override
     public void configure(HttpSecurity security) {
         security.addFilterAfter(
