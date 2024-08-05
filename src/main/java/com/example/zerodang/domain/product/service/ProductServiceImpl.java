@@ -23,10 +23,6 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    @Override
-    public ProductResponseDTO.ProductFindAllDTO findAllByPopularity() {
-        return null;
-    }
 
     @Override
     public ProductResponseDTO.ProductFindAllDTO findAllByTOP3() {

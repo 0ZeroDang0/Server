@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-    /** 실시간 최다 비교 상품 조회 **/
-    ProductResponseDTO.ProductFindAllDTO findAllByPopularity();
     /** 실시간 TOP3 조회 **/
     ProductResponseDTO.ProductFindAllDTO findAllByTOP3();
     /** 인공 감미료 적은 수 조회 **/
