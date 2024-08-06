@@ -193,8 +193,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         BooleanBuilder builder = new BooleanBuilder();
 
         if (productFilterDTO.getKeyWord() != null && !productFilterDTO.getKeyWord() .isEmpty()) {
-            builder.and(product.productName.containsIgnoreCase(productFilterDTO.getKeyWord() )
-                    .or(product.productDescription.containsIgnoreCase(productFilterDTO.getKeyWord() )));
+            builder.and(product.productName.containsIgnoreCase(productFilterDTO.getKeyWord() ));
         }
 
         if (productFilterDTO.getProductCategory() != null) {
