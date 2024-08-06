@@ -1,5 +1,6 @@
 package com.example.zerodang.global.security.jwt;
 
+import com.example.zerodang.domain.user.entity.User;
 import com.example.zerodang.domain.user.repository.UserRepository;
 import com.example.zerodang.domain.user.service.UserService;
 import com.example.zerodang.global.exception.secure.SecureException;
@@ -123,9 +124,11 @@ public class JwtProvider {
         this.partnerRefreshToken = Keys.hmacShaKeyFor(partnerRefreshBytes);
     }
 
-    public JwtDto createJwtDto(Long userId, ZeroDangRole subject) {
+    public JwtDto createJwtDto(User user, ZeroDangRole subject) {
         String accessToken;
         String refreshToken;
+        Long userId = user.getUserId();
+        String userName = user.getUserName();
         Date accessTokenExpiredDate = this.computeExpiredDate(JwtType.ACCESS);
         Date refreshTokenExpiredDate = this.computeExpiredDate(JwtType.REFRESH);
 
@@ -145,6 +148,7 @@ public class JwtProvider {
 
         return new JwtDto(
                 userId,
+                userName,
                 accessToken,
                 refreshToken,
                 accessTokenExpiredDate.getTime(),

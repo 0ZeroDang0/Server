@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public JwtDto login(UserRequestDTO.UserLoginDTO userLoginDTO) {
         User findUser = getUser_Email(userLoginDTO.getUserEmail());
         checkPassword(userLoginDTO.getUserPassword(), findUser, passwordEncoder);
-        return jwtProvider.createJwtDto(findUser.getUserId(), ZeroDangRole.USER);
+        return jwtProvider.createJwtDto(findUser, ZeroDangRole.USER);
     }
 
     @Override
