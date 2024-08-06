@@ -35,6 +35,7 @@ public class ProductAnalyzeRepositoryImpl implements ProductAnalyzeRepositoryCus
 
         List<ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO> result = queryFactory.select(Projections.constructor(ProductAnalyzeResponseDTO.ProductAnalyzeFindOneDTO.class,
                         product.productId,
+                        productAnalyze.productAnalyzeId,
                         product.productName,
                         product.productMl,
                         product.productCategory,
