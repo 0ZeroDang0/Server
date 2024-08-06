@@ -30,7 +30,6 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeFindOneDTO {
         private Long productId;
-
         private Long productAnalyzeId;
         private String productName;
         private int productMl;
