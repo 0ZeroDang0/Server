@@ -48,6 +48,7 @@ public class ProductAnalyzeApiController {
 //            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<?> findAllByUserId(Pageable pageable) {
+
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productAnalyzeService.findAllByUserId(SecurityUtil.getCurrentId(), pageable)));
     }
 
