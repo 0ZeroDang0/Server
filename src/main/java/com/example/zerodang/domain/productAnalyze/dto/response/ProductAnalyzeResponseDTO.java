@@ -27,16 +27,16 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeFindOneDTO {
         private Long productId;
-        private Long analyzeId;
+        private Long productAnalyzeId;
         private String productName;
         private int productMl;
         private ProductCategory productCategory;
         private Map<Keyword, Long> keywordList;
         private String thumbnail;
 
-        public ProductAnalyzeFindOneDTO(Long productId, Long analyzeId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
+        public ProductAnalyzeFindOneDTO(Long productId, Long productAnalyzeId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
             this.productId = productId;
-            this.analyzeId = analyzeId;
+            this.productAnalyzeId = productAnalyzeId;
             this.productName = productName;
             this.productMl = productMl;
             this.productCategory = productCategory;
