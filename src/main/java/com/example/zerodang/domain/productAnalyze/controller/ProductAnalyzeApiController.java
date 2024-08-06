@@ -38,6 +38,7 @@ public class ProductAnalyzeApiController {
     })
     public ResponseEntity<?> cart(@PathVariable("productId") Long productId) {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productAnalyzeService.cart(productId, SecurityUtil.getCurrentId())));
+
     }
 
     @GetMapping("/findAllByUserId")
