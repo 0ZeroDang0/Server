@@ -40,7 +40,6 @@ public class ProductAnalyzeApiController {
         return ResponseEntity.ok().body(CustomResponse.SUCCESS(HttpStatus.CREATED.value(), productAnalyzeService.cart(productId, SecurityUtil.getCurrentId())));
 
     }
-
     @GetMapping("/findAllByUserId")
     @Operation(summary = "담기 전체 조회", description = "담기 전체를 조회합니다.")
     @ApiResponses(value = {
