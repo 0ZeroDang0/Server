@@ -1,11 +1,8 @@
 package com.example.zerodang.domain.productAnalyze.dto.response;
 
-import com.example.zerodang.domain.product.entity.Product;
 import com.example.zerodang.domain.product.entity.ProductCategory;
 import com.example.zerodang.domain.reviewKeyword.entity.Keyword;
 import com.example.zerodang.domain.sweetener.entity.Sweetener;
-import com.example.zerodang.domain.user.entity.User;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -30,16 +27,16 @@ public class ProductAnalyzeResponseDTO {
     @Builder
     public static class ProductAnalyzeFindOneDTO {
         private Long productId;
-        private Long productAnalyzeId;
+        private Long analyzeId;
         private String productName;
         private int productMl;
         private ProductCategory productCategory;
         private Map<Keyword, Long> keywordList;
         private String thumbnail;
 
-        public ProductAnalyzeFindOneDTO(Long productId, Long productAnalyzeId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
+        public ProductAnalyzeFindOneDTO(Long productId, Long analyzeId, String productName, int productMl, ProductCategory productCategory, String thumbnail) {
             this.productId = productId;
-            this.productAnalyzeId = productAnalyzeId;
+            this.analyzeId = analyzeId;
             this.productName = productName;
             this.productMl = productMl;
             this.productCategory = productCategory;
