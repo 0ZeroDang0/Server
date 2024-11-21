@@ -1,17 +1,38 @@
-# 0️⃣ ZeroDang 입니다 0️⃣
+# 🥤 제로당 - Server 
 
 ## 🖥️ 프로젝트 소개
-ZeroDang 서비스입니다.
+제로 식품의 감미료 및 영양 성분 정보 제공 웹 서비스입니다.
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <img src="https://github.com/user-attachments/assets/3c94898e-8740-4fb8-b267-44773512da2b" width="30%">
+    <img src="https://github.com/user-attachments/assets/b403c8b7-27e5-4068-a848-3b69a94b4174" width="30%">
+    <img src="https://github.com/user-attachments/assets/fb29ac03-1981-4ae7-a8f2-bbd7d31689bb" width="30%">
+    <img src="https://github.com/user-attachments/assets/c6e9fb6b-7039-451e-ad0c-f7a06f35f2d2" width="30%">
+</div>
+
+<br>
+
+## 📺 제로당 실제 화면
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <img src="https://github.com/user-attachments/assets/4fc0e6d9-1c7a-4386-aa13-583171da5937" width="30%">
+    <img src="https://github.com/user-attachments/assets/40f61eb0-2398-40b1-a857-4390fa921a5d" width="30%">
+    <img src="https://github.com/user-attachments/assets/5e000f20-2fc6-446f-9ab6-6e28561efe4d" width="30%">
+</div>
+
+<br>
+
+## 🎥 시연 영상
+![GIFMaker_me](https://github.com/user-attachments/assets/2a61f871-a1ca-402a-98a2-3643112e5b53)
+
 <br>
 
 ## 🕰️ 개발 기간
-* 24.07.27일 - 진행중
+* 24.07.27 - 24.08.07
 
 ## ⚙️ 개발 환경
 - `Java 21`
 - **IDE** : IntelliJ IDEA
 - **Framework** : Springboot(3.2.8)
-- **Database** : MySQL
+- **Database** : MySQL
 - **ORM** : Hibernate (Spring Data JPA 사용)
 
 ## 🧑‍🤝‍🧑 멤버 구성
@@ -22,7 +43,8 @@ ZeroDang 서비스입니다.
 </p>
 
 ## 🛠️아키텍처 구조도
-![아키텍처 구조도_3](https://github.com/user-attachments/assets/402eedcc-b640-4d14-9b0b-d02c5a2feac9)
+<img src="https://github.com/user-attachments/assets/5e70efe9-6f0a-48fe-b563-9c3e72626cfb" alt="아키텍처 구조" width="50%">
+
 ## 📝 규칙
 - `커밋 컨벤션`
     - Feat: 새로운 기능 추가
@@ -32,21 +54,7 @@ ZeroDang 서비스입니다.
     - Refactor: 코드 리팩토링
     - Test: 테스트 코드, 리팩토링 테스트 코드 추가
     - Chore: 빌드 업무 수정, 패키지 매니저 수정
-<br>
-
-- `issue 규칙`
-    - 템플릿
-        - issue 제목
-            - 예시: **feat: 이슈 정리**
-        - issue 템플릿
-            ```markdown
-            ## 📋 이슈 내용
-            
-            ## ✅ 체크리스트
-            
-            ## 📚 레퍼런스
-            
-            ```
+    
 <br>
 
 - `branch 규칙`
@@ -63,28 +71,10 @@ ZeroDang 서비스입니다.
         - feat: 로그인 구현 
 <br>
 
-- `PR 규칙`
-    - PR 템플릿
-      
-        ```markdown
-        ## 📋 이슈 번호
-        
-        ## 🛠 구현 사항
-        
-        ## 📚 기타
-        
-        ```
-        <br>
-
 - `DTO 규칙`
     - 엔티티명 + Response/Request + DTO
     - 예시
         - UserResponseDTO
         - PostRequestDTO
-
-## 📌 API 명세서
-
-
-## 📌 참고 자료
-
+          
 ---
