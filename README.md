@@ -62,22 +62,17 @@
     - Refactor: 코드 리팩토링
     - Test: 테스트 코드, 리팩토링 테스트 코드 추가
     - Chore: 빌드 업무 수정, 패키지 매니저 수정
-    
-<br>
 
 - `branch 규칙`
     - 각자의 깃 기능을 딴 branch 명을 사용한다.
     - 예시
         - git checkout -b feature/user
 
-<br>
-
 - `commit message 규칙`
     - 종류: 메시지
     - 예시
         - feat: 커밋 내용 
         - feat: 로그인 구현 
-<br>
 
 - `DTO 규칙`
     - 엔티티명 + Response/Request + DTO
