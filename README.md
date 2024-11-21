@@ -21,12 +21,14 @@
 <br>
 
 ## 🎥 시연 영상
-![GIFMaker_me](https://github.com/user-attachments/assets/2a61f871-a1ca-402a-98a2-3643112e5b53)
+![제로당](https://github.com/user-attachments/assets/e045e056-62b0-4e4c-96c6-d72fda5330cf)
 
 <br>
 
 ## 🕰️ 개발 기간
 * 24.07.27 - 24.08.07
+
+<br>
 
 ## ⚙️ 개발 환경
 - `Java 21`
@@ -35,6 +37,8 @@
 - **Database** : MySQL
 - **ORM** : Hibernate (Spring Data JPA 사용)
 
+<br>
+
 ## 🧑‍🤝‍🧑 멤버 구성
 <p>
     <a href="https://github.com/M-ung">
@@ -42,8 +46,12 @@
     </a>
 </p>
 
+<br>
+
 ## 🛠️아키텍처 구조도
 <img src="https://github.com/user-attachments/assets/5e70efe9-6f0a-48fe-b563-9c3e72626cfb" alt="아키텍처 구조" width="50%">
+
+<br>
 
 ## 📝 규칙
 - `커밋 컨벤션`
